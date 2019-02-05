@@ -48,6 +48,7 @@ bin/*
 config/*
 server.properties
 .classpath
+run/*
 
 
 # # Work around https://youtrack.jetbrains.com/issue/IDEA-116898

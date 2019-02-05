@@ -1,6 +1,6 @@
 package com.sirniloc.mdk;
 
-import com.sirniloc.mdk.systems.CombatHandler;
+import com.sirniloc.mdk.systems.MDKEventHandler;
 
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.Mod;
@@ -24,7 +24,7 @@ public class MDK
     @EventHandler
     public void init(FMLInitializationEvent event)
     {
-    	MinecraftForge.EVENT_BUS.register(new CombatHandler());
+    	MinecraftForge.EVENT_BUS.register(new MDKEventHandler());
     }
     
     public static int calcMod(int aScore) {

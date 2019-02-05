@@ -6,5 +6,8 @@ public interface IScores {
 	int getBody();
 	int getSpirit();
 
+	void syncSpawn();
+	void syncChange();
+	void syncStatCheck();
 	
 }
