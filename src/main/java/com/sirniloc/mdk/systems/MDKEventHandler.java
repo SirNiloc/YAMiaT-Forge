@@ -1,10 +1,11 @@
 package com.sirniloc.mdk.systems;
 
 import com.sirniloc.mdk.MDK;
-import com.sirniloc.mdk.ModCapabilities;
 
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.item.EntityArmorStand;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.MathHelper;
 import net.minecraftforge.event.AttachCapabilitiesEvent;
@@ -34,12 +35,23 @@ public class MDKEventHandler {
 	public void onSpawn(EntityConstructing event) {
 		
 		
-		System.out.println(event.getEntity().getName()+" has IScores: "+event.getEntity().hasCapability(ModCapabilities.CAPABILITY_STATS, null));
+		//System.out.println(event.getEntity().getName()+" has IScores: "+event.getEntity().hasCapability(ModCapabilities.CAPABILITY_STATS, null));
 	}
 	@SubscribeEvent
-	public void attachCapa(AttachCapabilitiesEvent<Entity> event) {
-		//TODO Learn ICapabilityProvider
-		event.addCapability(new ResourceLocation(MDK.MODID), ICapabilityProvider);
+	public void onAttachCapabilityEntity(AttachCapabilitiesEvent<Entity> event) {
+		if(event.getObject() instanceof EntityLivingBase && !(event.getObject() instanceof EntityArmorStand)&& !(event.getObject() instanceof EntityPlayer)) {
+			
+			try {
+				//event.addCapability(new ResourceLocation(MDK.MODID, "CAPABILITY_STATS"), event.getObject());
+				
+			}catch(java.lang.NullPointerException e){
+				
+			}
+		}
+		/*
+		if(event.getObject() instanceof EntityPlayer)
+			event.addCapability(new ResourceLocation(MDK.MODID, "CAPABILITY_STATS"), event.getObject());
+		*/
 	}
 	
 	public static float getDamageAfterDefStats(float damage, EntityLivingBase e)

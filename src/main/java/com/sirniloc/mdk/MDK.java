@@ -18,7 +18,7 @@ public class MDK
     
     @EventHandler
     public void preInit(FMLInitializationEvent event)    {
-    	ModCapabilities.registerCapabilites();
+    	ModCapabilities.preInit();
     }
     
     @EventHandler

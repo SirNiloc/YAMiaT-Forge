@@ -16,7 +16,7 @@ public class ModCapabilities {
 	public static Capability<IScores> CAPABILITY_STATS = null;
 
 	@SuppressWarnings("deprecation")
-	public static void registerCapabilites() {
+	public static void preInit() {
 		CapabilityManager.INSTANCE.register(IScores.class, new CapabilityCharacter(), CharacterMDK.class);
 	}
 	
