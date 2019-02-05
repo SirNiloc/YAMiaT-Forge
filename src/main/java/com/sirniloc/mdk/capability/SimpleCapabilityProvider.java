@@ -7,7 +7,7 @@ import net.minecraft.util.EnumFacing;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.ICapabilitySerializable;
 
-public class CapabilityProvider <HANDLER> implements ICapabilitySerializable<NBTBase> {
+public class SimpleCapabilityProvider <HANDLER> implements ICapabilitySerializable<NBTBase> {
 
 	/**
 
@@ -51,7 +51,7 @@ public class CapabilityProvider <HANDLER> implements ICapabilitySerializable<NBT
 
 	 */
 
-	public CapabilityProvider(Capability<HANDLER> capability, @Nullable EnumFacing facing) {
+	public SimpleCapabilityProvider(Capability<HANDLER> capability, @Nullable EnumFacing facing) {
 
 		this(capability, facing, capability.getDefaultInstance());
 
@@ -73,7 +73,7 @@ public class CapabilityProvider <HANDLER> implements ICapabilitySerializable<NBT
 
 	 */
 
-	public CapabilityProvider(Capability<HANDLER> capability, @Nullable EnumFacing facing, HANDLER instance) {
+	public SimpleCapabilityProvider(Capability<HANDLER> capability, @Nullable EnumFacing facing, HANDLER instance) {
 
 		this.capability = capability;
 

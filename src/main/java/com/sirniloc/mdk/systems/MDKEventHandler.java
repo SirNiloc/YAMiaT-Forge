@@ -2,7 +2,7 @@ package com.sirniloc.mdk.systems;
 
 import com.sirniloc.mdk.MDK;
 import com.sirniloc.mdk.capability.ABS;
-import com.sirniloc.mdk.capability.CapabilityProvider;
+import com.sirniloc.mdk.capability.SimpleCapabilityProvider;
 import com.sirniloc.mdk.capability.IAbilityScores;
 
 import net.minecraft.entity.Entity;
@@ -17,13 +17,7 @@ import net.minecraftforge.event.entity.living.LivingDamageEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
 public class MDKEventHandler {
-	/*
-	@SubscribeEvent	
-    public void onLivingHurt(LivingHurtEvent event) {
-        System.out.println("Before Armor:"+event.getEntityLiving().getName() + " was attacked from "+ event.getSource().getTrueSource() +" for "+event.getAmount());
-        
-        
-	}*/
+	
 	
 	@SubscribeEvent	
     public void onLivingDamage(LivingDamageEvent event) {
@@ -50,17 +44,20 @@ public class MDKEventHandler {
 	}
 	
 	public static ICapabilityProvider createProvider(IAbilityScores absCap) {
-		return new CapabilityProvider<IAbilityScores>(MDK.ABS_CAP, null, absCap);
+		return new SimpleCapabilityProvider<IAbilityScores>(MDK.ABS_CAP, null, absCap);
 	}
 	
 	public static float getDamageAfterDefStats(float damage, EntityLivingBase e)
 	{
-		//int defStat = e.*Get the Stat*;
-		//float defMod = defStat+5.0F;
-		float defMod = 99;
-		float maxDefMod = MDK.MAXABILITYMOD+5.0F;
-		float f = MathHelper.clamp(defMod, 0.0F, maxDefMod);
-	    return damage * (1.0F - f / (maxDefMod+6.0F));
+		if(e.hasCapability(MDK.ABS_CAP, null)) {
+			System.out.println("ABS damage reduction");
+			int defStat = e.;
+			float defMod = defStat+5.0F;
+			float maxDefMod = MDK.MAXABILITYMOD+5.0F;
+			float f = MathHelper.clamp(defMod, 0.0F, maxDefMod);
+		    return damage * (1.0F - f / (maxDefMod+6.0F));
+	    }
+		return damage;
     }
 	 
 }
