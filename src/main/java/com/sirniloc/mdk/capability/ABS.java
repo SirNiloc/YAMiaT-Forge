@@ -2,8 +2,8 @@ package com.sirniloc.mdk.capability;
 
 import java.lang.ref.WeakReference;
 
-import com.sirniloc.mdk.MDK;
 import com.sirniloc.mdk.character.Race;
+import com.sirniloc.mdk.util.ABSCalc;
 
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.nbt.NBTTagCompound;
@@ -17,22 +17,23 @@ public class ABS implements IAbilityScores, INBTSerializable<NBTTagCompound> {
 	int mind,body,spirit;
 	public WeakReference<EntityLivingBase> theEntity;
 
+	
 
 	public ABS(EntityLivingBase e) {
 		theEntity = new WeakReference<EntityLivingBase>(e);	
 	}
 	 @Override
 	public int getMind() {
-		return MathHelper.clamp(this.mind, 0, MDK.MAXABILITYSCORE);
+		return MathHelper.clamp(this.mind, 0, ABSCalc.MAXABILITYSCORE);
 	}
 	@Override
 	public int getBody() {
-		return MathHelper.clamp(this.body, 0, MDK.MAXABILITYSCORE);
+		return MathHelper.clamp(this.body, 0, ABSCalc.MAXABILITYSCORE);
 		
 	}
 	@Override
 	public int getSpirit() {
-		return MathHelper.clamp(this.spirit, 0, MDK.MAXABILITYSCORE);
+		return MathHelper.clamp(this.spirit, 0, ABSCalc.MAXABILITYSCORE);
 		
 	}
 	//TODO Fix
@@ -74,21 +75,21 @@ public class ABS implements IAbilityScores, INBTSerializable<NBTTagCompound> {
 
 	@Override
 	public void setMind(int i) {
-		this.mind = MathHelper.clamp(i, 0, MDK.MAXABILITYSCORE);
+		this.mind = MathHelper.clamp(i, 0, ABSCalc.MAXABILITYSCORE);
 		
 	}
 
 
 	@Override
 	public void setBody(int i) {
-		this.body = MathHelper.clamp(i, 0, MDK.MAXABILITYSCORE);
+		this.body = MathHelper.clamp(i, 0, ABSCalc.MAXABILITYSCORE);
 		
 	}
 
 
 	@Override
 	public void setSpirit(int i) {
-		this.spirit = MathHelper.clamp(i, 0, MDK.MAXABILITYSCORE);
+		this.spirit = MathHelper.clamp(i, 0, ABSCalc.MAXABILITYSCORE);
 		
 	}
 }

@@ -17,9 +17,6 @@ public class MDK
 {
     public static final String MODID = "mdk";
     public static final String VERSION = "1.0";
-    public static final int MAXABILITYSCORE = 30;
-    public static final int MAXABILITYMOD = 10;
-    public static final int MINABILITYMOD = -5;
     
     @CapabilityInject(IAbilityScores.class)
 	public static Capability<IAbilityScores> ABS_CAP = null;	

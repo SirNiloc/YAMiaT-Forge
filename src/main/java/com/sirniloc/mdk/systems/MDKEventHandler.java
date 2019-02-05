@@ -3,6 +3,7 @@ package com.sirniloc.mdk.systems;
 import com.sirniloc.mdk.MDK;
 import com.sirniloc.mdk.capability.ABS;
 import com.sirniloc.mdk.capability.SimpleCapabilityProvider;
+import com.sirniloc.mdk.util.ABSCalc;
 import com.sirniloc.mdk.capability.IAbilityScores;
 
 import net.minecraft.entity.Entity;
@@ -50,12 +51,21 @@ public class MDKEventHandler {
 	public static float getDamageAfterDefStats(float damage, EntityLivingBase e)
 	{
 		if(e.hasCapability(MDK.ABS_CAP, null)) {
-			System.out.println("ABS damage reduction");
-			int defStat = e.;
+			float inputDamage = damage;
+			System.out.println("ABS damage reduction Body:"+e.getCapability(MDK.ABS_CAP, null).getBody());
+			
+			int defStat = ABSCalc.calcMod(e.getCapability(MDK.ABS_CAP, null).getBody());
 			float defMod = defStat+5.0F;
-			float maxDefMod = MDK.MAXABILITYMOD+5.0F;
+			float maxDefMod = ABSCalc.MAXABILITYMOD+5.0F;
 			float f = MathHelper.clamp(defMod, 0.0F, maxDefMod);
-		    return damage * (1.0F - f / (maxDefMod+6.0F));
+
+			e.getCapability(MDK.ABS_CAP, null).setBody(e.getCapability(MDK.ABS_CAP, null).getBody()+1); //TODO remove test
+
+			float outputDamage = damage * (1.0F - f / (maxDefMod+6.0F));
+			
+			System.out.println("Def Stat:"+defStat+" Damage in:"+inputDamage+" | Damage out:"+outputDamage);
+			
+		    return outputDamage;
 	    }
 		return damage;
     }
