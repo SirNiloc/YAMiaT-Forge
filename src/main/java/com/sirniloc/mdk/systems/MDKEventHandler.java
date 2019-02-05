@@ -36,7 +36,7 @@ public class MDKEventHandler {
 	}
 	@SubscribeEvent
 	public void onAttachCapabilityEntity(AttachCapabilitiesEvent<Entity> event) {
-		if(event.getObject() instanceof EntityLivingBase && !(event.getObject() instanceof EntityArmorStand)&& !(event.getObject() instanceof EntityPlayer)) {
+		if(event.getObject() instanceof EntityLivingBase && !(event.getObject() instanceof EntityArmorStand)) {
 			
 			final IAbilityScores absCap = new ABS((EntityLivingBase) event.getObject());
 			event.addCapability(MDK.STAT_ID, createProvider(absCap));
@@ -47,8 +47,8 @@ public class MDKEventHandler {
 	public static ICapabilityProvider createProvider(IAbilityScores absCap) {
 		return new SimpleCapabilityProvider<IAbilityScores>(MDK.ABS_CAP, null, absCap);
 	}
-	
-	public static float getDamageAfterDefStats(float damage, EntityLivingBase e)
+		public static float getDamageAfterDefStats(float damage, EntityLivingBase e)
+
 	{
 		if(e.hasCapability(MDK.ABS_CAP, null)) {
 			float inputDamage = damage;
@@ -63,7 +63,7 @@ public class MDKEventHandler {
 
 			float outputDamage = damage * (1.0F - f / (maxDefMod+6.0F));
 			
-			System.out.println("Def Stat:"+defStat+" Damage in:"+inputDamage+" | Damage out:"+outputDamage);
+			System.out.println("Def Stat:"+f+" Damage in:"+inputDamage+" | Damage out:"+outputDamage);
 			
 		    return outputDamage;
 	    }
