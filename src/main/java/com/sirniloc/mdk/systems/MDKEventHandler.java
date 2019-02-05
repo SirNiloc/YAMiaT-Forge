@@ -1,20 +1,22 @@
 package com.sirniloc.mdk.systems;
 
 import com.sirniloc.mdk.MDK;
+import com.sirniloc.mdk.capability.ABS;
+import com.sirniloc.mdk.capability.CapabilityProvider;
+import com.sirniloc.mdk.capability.IAbilityScores;
 
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.item.EntityArmorStand;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.MathHelper;
+import net.minecraftforge.common.capabilities.ICapabilityProvider;
 import net.minecraftforge.event.AttachCapabilitiesEvent;
 import net.minecraftforge.event.entity.EntityEvent.EntityConstructing;
 import net.minecraftforge.event.entity.living.LivingDamageEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
 public class MDKEventHandler {
-	
 	/*
 	@SubscribeEvent	
     public void onLivingHurt(LivingHurtEvent event) {
@@ -41,17 +43,14 @@ public class MDKEventHandler {
 	public void onAttachCapabilityEntity(AttachCapabilitiesEvent<Entity> event) {
 		if(event.getObject() instanceof EntityLivingBase && !(event.getObject() instanceof EntityArmorStand)&& !(event.getObject() instanceof EntityPlayer)) {
 			
-			try {
-				//event.addCapability(new ResourceLocation(MDK.MODID, "CAPABILITY_STATS"), event.getObject());
-				
-			}catch(java.lang.NullPointerException e){
-				
-			}
+			final IAbilityScores absCap = new ABS((EntityLivingBase) event.getObject());
+			event.addCapability(MDK.STAT_ID, createProvider(absCap));
 		}
-		/*
-		if(event.getObject() instanceof EntityPlayer)
-			event.addCapability(new ResourceLocation(MDK.MODID, "CAPABILITY_STATS"), event.getObject());
-		*/
+			
+	}
+	
+	public static ICapabilityProvider createProvider(IAbilityScores absCap) {
+		return new CapabilityProvider<IAbilityScores>(MDK.ABS_CAP, null, absCap);
 	}
 	
 	public static float getDamageAfterDefStats(float damage, EntityLivingBase e)

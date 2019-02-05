@@ -1,8 +1,13 @@
 package com.sirniloc.mdk;
 
+import com.sirniloc.mdk.capability.CapabilityABS;
+import com.sirniloc.mdk.capability.IAbilityScores;
 import com.sirniloc.mdk.systems.MDKEventHandler;
 
+import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.common.capabilities.Capability;
+import net.minecraftforge.common.capabilities.CapabilityInject;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.Mod.EventHandler;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
@@ -16,15 +21,24 @@ public class MDK
     public static final int MAXABILITYMOD = 10;
     public static final int MINABILITYMOD = -5;
     
+    @CapabilityInject(IAbilityScores.class)
+	public static Capability<IAbilityScores> ABS_CAP = null;	
+	
+	public static final ResourceLocation STAT_ID = new ResourceLocation(MDK.MODID, "CAPABILITY_STATS");
+    
     @EventHandler
     public void preInit(FMLInitializationEvent event)    {
-    	ModCapabilities.preInit();
+    	
     }
     
     @EventHandler
     public void init(FMLInitializationEvent event)
     {
     	MinecraftForge.EVENT_BUS.register(new MDKEventHandler());
+    }
+    @EventHandler
+    public void postInit(FMLInitializationEvent event)    {
+    	CapabilityABS.postInit();
     }
     
     public static int calcMod(int aScore) {
