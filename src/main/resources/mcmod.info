@@ -1,0 +1,16 @@
+[
+{
+  "modid": "mdk",
+  "name": "You All Meet In A Tavern",
+  "description": "MDK development build",
+  "version": "${version}",
+  "mcversion": "${mcversion}",
+  "url": "",
+  "updateUrl": "",
+  "authorList": ["SirNiloc"],
+  "credits": "",
+  "logoFile": "",
+  "screenshots": [],
+  "dependencies": []
+}
+]
