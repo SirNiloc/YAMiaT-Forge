@@ -18,6 +18,7 @@ public class MDK
     public static final String MODID = "mdk";
     public static final String VERSION = "1.0";
     
+    
     @CapabilityInject(IAbilityScores.class)
 	public static Capability<IAbilityScores> ABS_CAP = null;	
 	

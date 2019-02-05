@@ -22,7 +22,8 @@ public class ABS implements IAbilityScores, INBTSerializable<NBTTagCompound> {
 	public ABS(EntityLivingBase e) {
 		theEntity = new WeakReference<EntityLivingBase>(e);	
 	}
-	 @Override
+	
+		@Override
 	public int getMind() {
 		return MathHelper.clamp(this.mind, 0, ABSCalc.MAXABILITYSCORE);
 	}
@@ -91,5 +92,19 @@ public class ABS implements IAbilityScores, INBTSerializable<NBTTagCompound> {
 	public void setSpirit(int i) {
 		this.spirit = MathHelper.clamp(i, 0, ABSCalc.MAXABILITYSCORE);
 		
+	}
+
+
+	@Override
+	public ABS getABS() {
+		return this;
+	}
+
+
+	@Override
+	public void cloneABS(ABS abs) {
+		spirit=abs.getSpirit();
+		mind=abs.getMind();
+		body=abs.getBody();
 	}
 }

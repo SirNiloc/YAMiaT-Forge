@@ -6,6 +6,9 @@ public interface IAbilityScores {
 	int getBody();
 	int getSpirit();
 	
+	ABS getABS();
+	void cloneABS(ABS abs);
+	
 	void setMind(int i);
 	void setBody(int i);
 	void setSpirit(int i);

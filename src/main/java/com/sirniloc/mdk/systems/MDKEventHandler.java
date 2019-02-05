@@ -15,6 +15,7 @@ import net.minecraftforge.common.capabilities.ICapabilityProvider;
 import net.minecraftforge.event.AttachCapabilitiesEvent;
 import net.minecraftforge.event.entity.EntityEvent.EntityConstructing;
 import net.minecraftforge.event.entity.living.LivingDamageEvent;
+import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
 public class MDKEventHandler {
@@ -44,11 +45,18 @@ public class MDKEventHandler {
 			
 	}
 	
+	@SubscribeEvent
+	public void onPlayerRespawn(PlayerEvent.Clone event) {
+		System.out.println("Clone player ABS");
+		event.getEntityLiving().getCapability(MDK.ABS_CAP, null).cloneABS(event.getOriginal().getCapability(MDK.ABS_CAP, null).getABS());	
+	}
+	
+	
 	public static ICapabilityProvider createProvider(IAbilityScores absCap) {
 		return new SimpleCapabilityProvider<IAbilityScores>(MDK.ABS_CAP, null, absCap);
 	}
-		public static float getDamageAfterDefStats(float damage, EntityLivingBase e)
-
+	
+	public static float getDamageAfterDefStats(float damage, EntityLivingBase e)
 	{
 		if(e.hasCapability(MDK.ABS_CAP, null)) {
 			float inputDamage = damage;
