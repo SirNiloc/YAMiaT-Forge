@@ -1,6 +1,7 @@
-package com.sirniloc.mdk.capability;
+package com.sirniloc.yam.character.capa.interfaces;
 
-import com.sirniloc.mdk.character.Race;
+import com.sirniloc.yam.character.Race;
+import com.sirniloc.yam.character.capa.ABS;
 
 public interface IAbilityScores {
 

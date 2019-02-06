@@ -1,4 +1,4 @@
-package com.sirniloc.mdk.capability;
+package com.draco18s.reasonablerealism;
 
 import javax.annotation.Nullable;
 
@@ -6,6 +6,13 @@ import net.minecraft.nbt.NBTBase;
 import net.minecraft.util.EnumFacing;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.ICapabilitySerializable;
+
+/**
+ * 
+ * @author Draco18s
+ *
+ * @param <HANDLER>
+ */
 
 public class SimpleCapabilityProvider <HANDLER> implements ICapabilitySerializable<NBTBase> {
 

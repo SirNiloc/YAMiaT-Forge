@@ -1,10 +1,10 @@
-package com.sirniloc.mdk.systems;
+package com.sirniloc.yam.handlers;
 
-import com.sirniloc.mdk.MDK;
-import com.sirniloc.mdk.capability.ABS;
-import com.sirniloc.mdk.capability.IAbilityScores;
-import com.sirniloc.mdk.capability.SimpleCapabilityProvider;
-import com.sirniloc.mdk.util.ABSCalc;
+import com.draco18s.reasonablerealism.SimpleCapabilityProvider;
+import com.sirniloc.yam.YAM;
+import com.sirniloc.yam.character.capa.ABS;
+import com.sirniloc.yam.character.capa.interfaces.IAbilityScores;
+import com.sirniloc.yam.util.ABSCalc;
 
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
@@ -17,7 +17,7 @@ import net.minecraftforge.event.entity.living.LivingDamageEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
-public class MDKEventHandler {
+public class YAMEventHandler {
 	
 	
 	@SubscribeEvent	
@@ -36,7 +36,7 @@ public class MDKEventHandler {
 		if(event.getObject() instanceof EntityLivingBase && !(event.getObject() instanceof EntityArmorStand)) {
 			
 			final IAbilityScores absCap = new ABS((EntityLivingBase) event.getObject());
-			event.addCapability(MDK.STAT_ID, createProvider(absCap));
+			event.addCapability(YAM.STAT_ID, createProvider(absCap));
 		}
 			
 	}
@@ -44,37 +44,25 @@ public class MDKEventHandler {
 	@SubscribeEvent
 	public void onPlayerRespawn(PlayerEvent.Clone event) {
 		System.out.println("Clone player ABS");
-		event.getEntityLiving().getCapability(MDK.ABS_CAP, null).cloneABS(event.getOriginal().getCapability(MDK.ABS_CAP, null).getABS());	
+		event.getEntityLiving().getCapability(YAM.ABS_CAP, null).cloneABS(event.getOriginal().getCapability(YAM.ABS_CAP, null).getABS());	
 		
 	}
 	
-	@SubscribeEvent
-	public void onPLayerSave(PlayerEvent.SaveToFile e) {
-		if(e.getEntityPlayer().hasCapability(MDK.ABS_CAP, null)) {
-			//e.getEntityPlayer().getEntityData().setTag(MDKEventHandler.keyABS, e.getEntityLiving().getCapability(MDK.ABS_CAP, null).getABS().serializeNBT());
-		}
-	}
-	@SubscribeEvent
-	public void onPLayerLoad(PlayerEvent.LoadFromFile e) {
-		if(e.getEntityPlayer().hasCapability(MDK.ABS_CAP, null)) {
-			//e.getEntityPlayer().getEntityData().getTag(MDKEventHandler.keyABS);			
-		}
-	}
 	
 	
 	public static ICapabilityProvider createProvider(IAbilityScores absCap) {
-		return new SimpleCapabilityProvider<IAbilityScores>(MDK.ABS_CAP, null, absCap);
+		return new SimpleCapabilityProvider<IAbilityScores>(YAM.ABS_CAP, null, absCap);
 	}
 	
 	public static float getDamageAfterDefStats(float damage, EntityLivingBase e)
 	{
-		if(e.hasCapability(MDK.ABS_CAP, null)) {
-			System.out.println(e.getCapability(MDK.ABS_CAP, null).toString());
+		if(e.hasCapability(YAM.ABS_CAP, null)) {
+			System.out.println(e.getCapability(YAM.ABS_CAP, null).toString());
 			
-			e.getCapability(MDK.ABS_CAP, null).setBody(e.getCapability(MDK.ABS_CAP, null).getBody()+1);
+			e.getCapability(YAM.ABS_CAP, null).setBody(e.getCapability(YAM.ABS_CAP, null).getBody()+1);
 			
 			float inputDamage = damage;			
-			int defStat = ABSCalc.calcMod(e.getCapability(MDK.ABS_CAP, null).getTotalBody());
+			int defStat = ABSCalc.calcMod(e.getCapability(YAM.ABS_CAP, null).getTotalBody());
 			float defMod = defStat+5.0F;
 			float maxDefMod = ABSCalc.MAX_MOD+5.0F;
 			float f = MathHelper.clamp(defMod, 0.0F, maxDefMod);			

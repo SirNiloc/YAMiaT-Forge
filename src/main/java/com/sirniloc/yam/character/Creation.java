@@ -1,4 +1,4 @@
-package com.sirniloc.mdk.character;
+package com.sirniloc.yam.character;
 
 import net.minecraft.entity.player.EntityPlayer;
 

@@ -1,6 +1,8 @@
-package com.sirniloc.mdk.capability;
+package com.sirniloc.yam.character.capa;
 
 import java.util.concurrent.Callable;
+
+import com.sirniloc.yam.character.capa.interfaces.IAbilityScores;
 
 import net.minecraft.nbt.NBTBase;
 import net.minecraft.nbt.NBTTagCompound;

@@ -1,7 +1,8 @@
-package com.sirniloc.mdk.capability;
+package com.sirniloc.yam.character.capa;
 
-import com.sirniloc.mdk.character.Race;
-import com.sirniloc.mdk.util.ABSCalc;
+import com.sirniloc.yam.character.Race;
+import com.sirniloc.yam.character.capa.interfaces.IAbilityScores;
+import com.sirniloc.yam.util.ABSCalc;
 
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;

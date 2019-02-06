@@ -1,4 +1,4 @@
-package com.sirniloc.mdk.util;
+package com.sirniloc.yam.util;
 
 public class ABSCalc {
 

@@ -1,8 +1,8 @@
-package com.sirniloc.mdk.character;
+package com.sirniloc.yam.character;
 
 import java.util.Random;
 
-import com.sirniloc.mdk.util.ABSCalc;
+import com.sirniloc.yam.util.ABSCalc;
 
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
