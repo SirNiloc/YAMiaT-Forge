@@ -53,7 +53,7 @@ public class MDKEventHandler {
 	@SubscribeEvent
 	public void onPLayerSave(PlayerEvent.SaveToFile e) {
 		if(e.getEntityPlayer().hasCapability(MDK.ABS_CAP, null)) {
-			//TODO e.getEntityPlayer().getCapability(capability, facing)
+			e.getEntityPlayer().getCapability(capability, facing)
 		}
 	}
 	
