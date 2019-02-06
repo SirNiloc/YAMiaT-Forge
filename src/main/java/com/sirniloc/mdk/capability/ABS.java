@@ -1,7 +1,5 @@
 package com.sirniloc.mdk.capability;
 
-import java.lang.ref.WeakReference;
-
 import com.sirniloc.mdk.character.Race;
 import com.sirniloc.mdk.util.ABSCalc;
 
@@ -13,12 +11,17 @@ import net.minecraftforge.common.util.INBTSerializable;
 
 public class ABS implements IAbilityScores, INBTSerializable<NBTTagCompound> {
 
-	String name;
 	private int race=-1;
 	private int mind,body,spirit;
 	public EntityLivingBase theEntity;
-
 	
+	@Override
+	public String toString() {		
+		return this.getRace().getRaceFullName(theEntity)+
+				" Mind:"+this.getMind()+
+				" Body:"+this.getBody()+
+				" Spirit:"+this.getSpirit();
+	}
 
 	public ABS(EntityLivingBase e) {
 		theEntity = e;
@@ -115,19 +118,10 @@ public class ABS implements IAbilityScores, INBTSerializable<NBTTagCompound> {
 	}
 
 
-	@Override
-	public ABS getABS() {
-		return this;
-	}
+	
 
 
-	@Override
-	public void cloneABS(ABS abs) {
-		spirit=abs.getTotalSpirit();
-		mind=abs.getTotalMind();
-		body=abs.getTotalBody();
-		race=abs.getRaceInt();
-	}
+	
 
 
 	@Override
@@ -141,5 +135,24 @@ public class ABS implements IAbilityScores, INBTSerializable<NBTTagCompound> {
 	@Override
 	public int getRaceInt() {
 		return this.race;
+	}
+
+
+	@Override
+	public void setRaceInt(int i) {
+		race = i;		
+	}
+
+	@Override
+	public ABS getABS() {
+		return this;
+	}
+
+	@Override
+	public void cloneABS(ABS abs) {
+		spirit=abs.getTotalSpirit();
+		mind=abs.getTotalMind();
+		body=abs.getTotalBody();
+		race=abs.getRaceInt();
 	}
 }

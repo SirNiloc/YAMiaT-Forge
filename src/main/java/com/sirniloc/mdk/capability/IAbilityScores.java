@@ -26,6 +26,9 @@ public interface IAbilityScores {
 	
 	Race getRace();
 	int getRaceInt();
+	void setRaceInt(int i);
+	
+	
 	
 
 }

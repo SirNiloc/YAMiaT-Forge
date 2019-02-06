@@ -29,11 +29,8 @@ public class MDKEventHandler {
         
 	}
 	@SubscribeEvent
-	public void onSpawn(EntityConstructing event) {
-		
-		
-		//System.out.println(event.getEntity().getName()+" has IScores: "+event.getEntity().hasCapability(ModCapabilities.CAPABILITY_STATS, null));
-	}
+	public void onSpawn(EntityConstructing event) {}
+	
 	@SubscribeEvent
 	public void onAttachCapabilityEntity(AttachCapabilitiesEvent<Entity> event) {
 		if(event.getObject() instanceof EntityLivingBase && !(event.getObject() instanceof EntityArmorStand)) {
@@ -48,19 +45,19 @@ public class MDKEventHandler {
 	public void onPlayerRespawn(PlayerEvent.Clone event) {
 		System.out.println("Clone player ABS");
 		event.getEntityLiving().getCapability(MDK.ABS_CAP, null).cloneABS(event.getOriginal().getCapability(MDK.ABS_CAP, null).getABS());	
+		
 	}
 	
 	@SubscribeEvent
 	public void onPLayerSave(PlayerEvent.SaveToFile e) {
 		if(e.getEntityPlayer().hasCapability(MDK.ABS_CAP, null)) {
-			e.getEntityPlayer().getCapability(capability, facing)
+			//e.getEntityPlayer().getEntityData().setTag(MDKEventHandler.keyABS, e.getEntityLiving().getCapability(MDK.ABS_CAP, null).getABS().serializeNBT());
 		}
 	}
-	
 	@SubscribeEvent
 	public void onPLayerLoad(PlayerEvent.LoadFromFile e) {
 		if(e.getEntityPlayer().hasCapability(MDK.ABS_CAP, null)) {
-			
+			//e.getEntityPlayer().getEntityData().getTag(MDKEventHandler.keyABS);			
 		}
 	}
 	
@@ -72,7 +69,10 @@ public class MDKEventHandler {
 	public static float getDamageAfterDefStats(float damage, EntityLivingBase e)
 	{
 		if(e.hasCapability(MDK.ABS_CAP, null)) {
-			System.out.println(e.getCapability(MDK.ABS_CAP, null).getRace().getRaceFullName(e));
+			System.out.println(e.getCapability(MDK.ABS_CAP, null).toString());
+			
+			e.getCapability(MDK.ABS_CAP, null).setBody(e.getCapability(MDK.ABS_CAP, null).getBody()+1);
+			
 			float inputDamage = damage;			
 			int defStat = ABSCalc.calcMod(e.getCapability(MDK.ABS_CAP, null).getTotalBody());
 			float defMod = defStat+5.0F;
