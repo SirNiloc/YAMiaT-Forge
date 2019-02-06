@@ -2,14 +2,13 @@ package com.sirniloc.mdk.systems;
 
 import com.sirniloc.mdk.MDK;
 import com.sirniloc.mdk.capability.ABS;
+import com.sirniloc.mdk.capability.IAbilityScores;
 import com.sirniloc.mdk.capability.SimpleCapabilityProvider;
 import com.sirniloc.mdk.util.ABSCalc;
-import com.sirniloc.mdk.capability.IAbilityScores;
 
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.item.EntityArmorStand;
-import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.math.MathHelper;
 import net.minecraftforge.common.capabilities.ICapabilityProvider;
 import net.minecraftforge.event.AttachCapabilitiesEvent;
@@ -51,6 +50,20 @@ public class MDKEventHandler {
 		event.getEntityLiving().getCapability(MDK.ABS_CAP, null).cloneABS(event.getOriginal().getCapability(MDK.ABS_CAP, null).getABS());	
 	}
 	
+	@SubscribeEvent
+	public void onPLayerSave(PlayerEvent.SaveToFile e) {
+		if(e.getEntityPlayer().hasCapability(MDK.ABS_CAP, null)) {
+			//TODO e.getEntityPlayer().getCapability(capability, facing)
+		}
+	}
+	
+	@SubscribeEvent
+	public void onPLayerLoad(PlayerEvent.LoadFromFile e) {
+		if(e.getEntityPlayer().hasCapability(MDK.ABS_CAP, null)) {
+			
+		}
+	}
+	
 	
 	public static ICapabilityProvider createProvider(IAbilityScores absCap) {
 		return new SimpleCapabilityProvider<IAbilityScores>(MDK.ABS_CAP, null, absCap);
@@ -59,20 +72,13 @@ public class MDKEventHandler {
 	public static float getDamageAfterDefStats(float damage, EntityLivingBase e)
 	{
 		if(e.hasCapability(MDK.ABS_CAP, null)) {
-			float inputDamage = damage;
-			System.out.println("ABS damage reduction Body:"+e.getCapability(MDK.ABS_CAP, null).getBody());
-			
-			int defStat = ABSCalc.calcMod(e.getCapability(MDK.ABS_CAP, null).getBody());
+			System.out.println(e.getCapability(MDK.ABS_CAP, null).getRace().getRaceFullName(e));
+			float inputDamage = damage;			
+			int defStat = ABSCalc.calcMod(e.getCapability(MDK.ABS_CAP, null).getTotalBody());
 			float defMod = defStat+5.0F;
-			float maxDefMod = ABSCalc.MAXABILITYMOD+5.0F;
-			float f = MathHelper.clamp(defMod, 0.0F, maxDefMod);
-
-			e.getCapability(MDK.ABS_CAP, null).setBody(e.getCapability(MDK.ABS_CAP, null).getBody()+1); //TODO remove test
-
-			float outputDamage = damage * (1.0F - f / (maxDefMod+6.0F));
-			
-			System.out.println("Def Stat:"+f+" Damage in:"+inputDamage+" | Damage out:"+outputDamage);
-			
+			float maxDefMod = ABSCalc.MAX_MOD+5.0F;
+			float f = MathHelper.clamp(defMod, 0.0F, maxDefMod);			
+			float outputDamage = inputDamage * (1.0F - f / (maxDefMod+6.0F));			
 		    return outputDamage;
 	    }
 		return damage;

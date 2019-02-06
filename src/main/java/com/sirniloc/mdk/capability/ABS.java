@@ -6,6 +6,7 @@ import com.sirniloc.mdk.character.Race;
 import com.sirniloc.mdk.util.ABSCalc;
 
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.math.MathHelper;
 import net.minecraftforge.common.util.INBTSerializable;
@@ -13,30 +14,47 @@ import net.minecraftforge.common.util.INBTSerializable;
 public class ABS implements IAbilityScores, INBTSerializable<NBTTagCompound> {
 
 	String name;
-	Race race;
-	int mind,body,spirit;
-	public WeakReference<EntityLivingBase> theEntity;
+	private int race=-1;
+	private int mind,body,spirit;
+	public EntityLivingBase theEntity;
 
 	
 
 	public ABS(EntityLivingBase e) {
-		theEntity = new WeakReference<EntityLivingBase>(e);	
+		theEntity = e;
+		if(race<0 && !(e instanceof EntityPlayer))race=Race.getRandomRaceIndex();
 	}
 	
 		@Override
+	public int getTotalMind() {
+		return this.getRace().getMind()+this.getMind();
+	}
+	@Override
+	public int getTotalBody() {
+		return this.getRace().getBody()+this.getBody();
+		
+	}
+	@Override
+	public int getTotalSpirit() {
+		return this.getRace().getSpirit()+this.getSpirit();
+		
+	}
+	//
+	@Override
 	public int getMind() {
-		return MathHelper.clamp(this.mind, 0, ABSCalc.MAXABILITYSCORE);
+		return this.mind;
 	}
 	@Override
 	public int getBody() {
-		return MathHelper.clamp(this.body, 0, ABSCalc.MAXABILITYSCORE);
+		return this.body;
 		
 	}
 	@Override
 	public int getSpirit() {
-		return MathHelper.clamp(this.spirit, 0, ABSCalc.MAXABILITYSCORE);
+		return this.spirit;
 		
 	}
+	//
 	//TODO Fix
 	@Override
 	public NBTTagCompound serializeNBT() {	
@@ -44,6 +62,7 @@ public class ABS implements IAbilityScores, INBTSerializable<NBTTagCompound> {
 		nbt.setInteger("mind", this.mind);
 		nbt.setInteger("body", this.body);
 		nbt.setInteger("spirit", this.spirit);
+		nbt.setInteger("race", this.race);
 		return nbt;
 	}
 	@Override
@@ -53,6 +72,7 @@ public class ABS implements IAbilityScores, INBTSerializable<NBTTagCompound> {
 		this.mind = nbt.getInteger("mind");
 		this.body = nbt.getInteger("body");
 		this.spirit = nbt.getInteger("spirit");
+		this.race = nbt.getInteger("race");
 		
 	}
 
@@ -76,21 +96,21 @@ public class ABS implements IAbilityScores, INBTSerializable<NBTTagCompound> {
 
 	@Override
 	public void setMind(int i) {
-		this.mind = MathHelper.clamp(i, 0, ABSCalc.MAXABILITYSCORE);
+		this.mind = MathHelper.clamp(i, 0, ABSCalc.MAX_ABS_LEVEL);
 		
 	}
 
 
 	@Override
 	public void setBody(int i) {
-		this.body = MathHelper.clamp(i, 0, ABSCalc.MAXABILITYSCORE);
+		this.body = MathHelper.clamp(i, 0, ABSCalc.MAX_ABS_LEVEL);
 		
 	}
 
 
 	@Override
 	public void setSpirit(int i) {
-		this.spirit = MathHelper.clamp(i, 0, ABSCalc.MAXABILITYSCORE);
+		this.spirit = MathHelper.clamp(i, 0, ABSCalc.MAX_ABS_LEVEL);
 		
 	}
 
@@ -103,8 +123,23 @@ public class ABS implements IAbilityScores, INBTSerializable<NBTTagCompound> {
 
 	@Override
 	public void cloneABS(ABS abs) {
-		spirit=abs.getSpirit();
-		mind=abs.getMind();
-		body=abs.getBody();
+		spirit=abs.getTotalSpirit();
+		mind=abs.getTotalMind();
+		body=abs.getTotalBody();
+		race=abs.getRaceInt();
+	}
+
+
+	@Override
+	public Race getRace() {
+		if(this.theEntity instanceof EntityPlayer && race<0) race = Race.getRandomRaceIndex();
+		
+		return Race.getRaceFromInt(this.race);
+	}
+
+
+	@Override
+	public int getRaceInt() {
+		return this.race;
 	}
 }

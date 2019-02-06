@@ -1,7 +1,13 @@
 package com.sirniloc.mdk.capability;
 
+import com.sirniloc.mdk.character.Race;
+
 public interface IAbilityScores {
 
+	int getTotalMind();
+	int getTotalBody();
+	int getTotalSpirit();
+	
 	int getMind();
 	int getBody();
 	int getSpirit();
@@ -17,6 +23,9 @@ public interface IAbilityScores {
 	void syncSpawn();
 	void syncChange();
 	void syncStatCheck();
+	
+	Race getRace();
+	int getRaceInt();
 	
 
 }

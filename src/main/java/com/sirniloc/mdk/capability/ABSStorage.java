@@ -13,9 +13,9 @@ public class ABSStorage implements IStorage<IAbilityScores> {
 	@Override
 	public NBTBase writeNBT(Capability<IAbilityScores> capability, IAbilityScores instance, EnumFacing side) {
 		NBTTagCompound nbt = new NBTTagCompound();
-		nbt.setInteger("mind", instance.getMind());
-		nbt.setInteger("body", instance.getBody());
-		nbt.setInteger("spirit", instance.getSpirit());
+		nbt.setInteger("mind", instance.getTotalMind());
+		nbt.setInteger("body", instance.getTotalBody());
+		nbt.setInteger("spirit", instance.getTotalSpirit());
 		return nbt;
 	}
 

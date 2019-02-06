@@ -2,9 +2,12 @@ package com.sirniloc.mdk.util;
 
 public class ABSCalc {
 
-    public static final int MAXABILITYSCORE = 30;
-    public static final int MAXABILITYMOD = 10;
-    public static final int MINABILITYMOD = -5;
+    public static final int MAX_ABS = 30;
+    public static final int MAX_ABS_LEVEL = 21;
+    public static final int MAX_ABS_RACE = 9;
+    
+    public static final int MAX_MOD = 10;
+    public static final int MIN_MOD = -5;
 
 	public static int calcMod(int aScore) {
 
