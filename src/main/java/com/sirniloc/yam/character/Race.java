@@ -56,8 +56,8 @@ public class Race implements IRace{
 		return (int) (i + (j - i) * r.nextDouble());
 	}
 	
-	public static int getRandomRaceIndex() {
-		return (int) r(0,RACE_COUNT-1);
+	public static int getRandomRaceIndex(int count) {
+		return (int) r(0,count-1);
 	}
 	
 	@Override

@@ -13,8 +13,7 @@ import net.minecraftforge.common.util.INBTSerializable;
 
 public class CharacterYAM implements IAbilityScores, INBTSerializable<NBTTagCompound> {
 
-	private int race=-1;
-	private int evo =-1;
+	private int raceIndex=-1;
 	private int mind,body,spirit;
 	public EntityLivingBase theEntity;
 	
@@ -28,7 +27,7 @@ public class CharacterYAM implements IAbilityScores, INBTSerializable<NBTTagComp
 
 	public CharacterYAM(EntityLivingBase e) {
 		theEntity = e;
-		if(race<0 && !(e instanceof EntityPlayer))race=Race.getRandomRaceIndex();
+		if(raceIndex<0 && !(e instanceof EntityPlayer))raceIndex=Race.getRandomRaceIndex(Race.RACE_COUNT);
 	}
 	
 		@Override
@@ -124,21 +123,21 @@ public class CharacterYAM implements IAbilityScores, INBTSerializable<NBTTagComp
 	
 	@Override
 	public Race getRace() {
-		if(this.theEntity instanceof EntityPlayer && race<0) race = Race.getRandomRaceIndex();
+		if(this.theEntity instanceof EntityPlayer && raceIndex<0) raceIndex = Race.getRandomRaceIndex(Race.RACE_COUNT);
 		
-		return Race.getRaceFromInt(this.race);
+		return Race.getRaceFromInt(this.raceIndex);
 	}
 
 
 	@Override
 	public int getRaceInt() {
-		return this.race;
+		return this.raceIndex;
 	}
 
 
 	@Override
 	public void setRaceInt(int i) {
-		this.race = i;		
+		this.raceIndex = i;		
 	}
 
 	@Override
@@ -151,7 +150,7 @@ public class CharacterYAM implements IAbilityScores, INBTSerializable<NBTTagComp
 		spirit=abs.getTotalSpirit();
 		mind=abs.getTotalMind();
 		body=abs.getTotalBody();
-		race=abs.getRaceInt();
+		raceIndex=abs.getRaceInt();
 	}
 
 }

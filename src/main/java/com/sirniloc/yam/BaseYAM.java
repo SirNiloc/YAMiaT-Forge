@@ -15,7 +15,7 @@ import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 @Mod(modid = BaseYAM.MODID, version = BaseYAM.VERSION)
 public class BaseYAM
 {
-    public static final String MODID = "mdk";
+    public static final String MODID = "yam";
     public static final String VERSION = "0.2";
     
     
