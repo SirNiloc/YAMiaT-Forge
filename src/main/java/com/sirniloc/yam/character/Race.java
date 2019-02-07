@@ -10,7 +10,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.math.MathHelper;
 
 public class Race implements IRace{
-	String name,subName;
+	protected String name,subName;
 	int mind,body,spirit;
 	
 	static Race noRace = new Race();
@@ -59,6 +59,7 @@ public class Race implements IRace{
 	public static int getRandomRaceIndex() {
 		return (int) r(0,RACE_COUNT-1);
 	}
+	
 	@Override
 	public void setStats(int m, int b, int s) {
 		mind=m;

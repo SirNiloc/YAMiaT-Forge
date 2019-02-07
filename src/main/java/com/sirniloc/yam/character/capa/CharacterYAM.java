@@ -1,7 +1,7 @@
 package com.sirniloc.yam.character.capa;
 
-import com.sirniloc.yam.character.Race;
 import com.sirniloc.yam.character.NBTHelper;
+import com.sirniloc.yam.character.Race;
 import com.sirniloc.yam.character.capa.interfaces.IAbilityScores;
 import com.sirniloc.yam.util.AbilityScoreHelper;
 
@@ -14,6 +14,7 @@ import net.minecraftforge.common.util.INBTSerializable;
 public class CharacterYAM implements IAbilityScores, INBTSerializable<NBTTagCompound> {
 
 	private int race=-1;
+	private int evo =-1;
 	private int mind,body,spirit;
 	public EntityLivingBase theEntity;
 	
@@ -120,14 +121,7 @@ public class CharacterYAM implements IAbilityScores, INBTSerializable<NBTTagComp
 		this.spirit = MathHelper.clamp(i, 0, AbilityScoreHelper.MAX_ABS_LEVEL);
 		
 	}
-
-
 	
-
-
-	
-
-
 	@Override
 	public Race getRace() {
 		if(this.theEntity instanceof EntityPlayer && race<0) race = Race.getRandomRaceIndex();
@@ -144,7 +138,7 @@ public class CharacterYAM implements IAbilityScores, INBTSerializable<NBTTagComp
 
 	@Override
 	public void setRaceInt(int i) {
-		race = i;		
+		this.race = i;		
 	}
 
 	@Override
@@ -159,4 +153,5 @@ public class CharacterYAM implements IAbilityScores, INBTSerializable<NBTTagComp
 		body=abs.getTotalBody();
 		race=abs.getRaceInt();
 	}
+
 }
