@@ -48,7 +48,7 @@ run/*
 
 *.launch
 eula.txt
-gradle/wrapper
+gradle/*
 
 server.properties
 
