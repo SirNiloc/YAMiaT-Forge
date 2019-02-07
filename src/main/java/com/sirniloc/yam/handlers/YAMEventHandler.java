@@ -14,6 +14,7 @@ import net.minecraftforge.common.capabilities.ICapabilityProvider;
 import net.minecraftforge.event.AttachCapabilitiesEvent;
 import net.minecraftforge.event.entity.EntityEvent.EntityConstructing;
 import net.minecraftforge.event.entity.living.LivingDamageEvent;
+import net.minecraftforge.event.entity.living.LivingEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
@@ -23,7 +24,7 @@ public class YAMEventHandler {
 	@SubscribeEvent	
     public void onLivingDamage(LivingDamageEvent event) {
         //System.out.println("After Armor:"+event.getEntityLiving().getName() + " was attacked from "+ event.getSource().getTrueSource() +" for "+event.getAmount());
-        event.setAmount(getDamageAfterDefStats(event.getAmount(),event.getEntityLiving()));
+        event.setAmount(getDamageAfterYAM(event.getAmount(),event.getEntityLiving(), event.getSource().getTrueSource()));
         //System.out.println("After Stats:"+event.getEntityLiving().getName() + " was attacked from "+ event.getSource().getTrueSource() +" for "+event.getAmount());
         
         
@@ -48,27 +49,55 @@ public class YAMEventHandler {
 		
 	}
 	
+	@SubscribeEvent
+	public void onLivingUpdate(LivingEvent.LivingUpdateEvent event) {
+		if(event.getEntityLiving().hasCapability(YAM.ABS_CAP, null)) {
+				event.getEntityLiving().setHealth(getHealFromYAM(event.getEntityLiving()));
+				
+		}
+		
+		
+	}
 	
 	
 	public static ICapabilityProvider createProvider(IAbilityScores absCap) {
 		return new SimpleCapabilityProvider<IAbilityScores>(YAM.ABS_CAP, null, absCap);
 	}
 	
-	public static float getDamageAfterDefStats(float damage, EntityLivingBase e)
+	public static float getHealFromYAM(EntityLivingBase e) {
+
+		float mod = ABSCalc.calcMod(e.getCapability(YAM.ABS_CAP, null).getTotalSpirit())+5;
+		int seconds = 20;
+				
+		return (mod/15)/(20*seconds);
+		
+	}
+	
+	public static float getDamageAfterYAM(float damage, EntityLivingBase defender, Entity attacker)
 	{
-		if(e.hasCapability(YAM.ABS_CAP, null)) {
-			System.out.println(e.getCapability(YAM.ABS_CAP, null).toString());
+		if(defender.hasCapability(YAM.ABS_CAP, null) && attacker.hasCapability(YAM.ABS_CAP, null)) {
 			
-			e.getCapability(YAM.ABS_CAP, null).setBody(e.getCapability(YAM.ABS_CAP, null).getBody()+1);
+			float trueDamage = damage;
 			
-			float inputDamage = damage;			
-			int defStat = ABSCalc.calcMod(e.getCapability(YAM.ABS_CAP, null).getTotalBody());
-			float defMod = defStat+5.0F;
-			float maxDefMod = ABSCalc.MAX_MOD+5.0F;
-			float f = MathHelper.clamp(defMod, 0.0F, maxDefMod);			
-			float outputDamage = inputDamage * (1.0F - f / (maxDefMod+6.0F));			
+			int statDefense = ABSCalc.calcMod(defender.getCapability(YAM.ABS_CAP, null).getTotalBody());
+			int statAttack = ABSCalc.calcMod(attacker.getCapability(YAM.ABS_CAP, null).getTotalMind());
+						
+			float defMod = statDefense+5.0F;
+			float attMod = statAttack+5.0F;
+			
+			float maxMod = ABSCalc.MAX_MOD+11.0F;
+			
+			float d = MathHelper.clamp(defMod, 0.0F, maxMod-6);
+			float a = MathHelper.clamp(attMod, 0.0F, maxMod-6);
+			
+			float dm = (1.0F - d / maxMod);
+			float am = (1.0F - a / maxMod);
+			
+			float outputDamage = trueDamage * (dm/am);
+			
 		    return outputDamage;
 	    }
+		
 		return damage;
     }
 	 
