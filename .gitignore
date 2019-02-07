@@ -46,6 +46,10 @@ bin/*
 config/*
 run/*
 
+*.launch
+eula.txt
+gradle/wrapper
+
 server.properties
 
 options.txt
