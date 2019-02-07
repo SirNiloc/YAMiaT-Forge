@@ -19,7 +19,7 @@ public class CharacterYAM implements IAbilityScores, INBTSerializable<NBTTagComp
 	
 	@Override
 	public String toString() {		
-		return this.getRace().getRaceFullName(theEntity)+
+		return this.getRace().getFullName(theEntity)+
 				" Mind:"+this.getMind()+
 				" Body:"+this.getBody()+
 				" Spirit:"+this.getSpirit();

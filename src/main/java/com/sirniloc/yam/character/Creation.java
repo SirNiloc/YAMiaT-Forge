@@ -1,7 +1,5 @@
 package com.sirniloc.yam.character;
 
-import net.minecraft.entity.player.EntityPlayer;
-
 public class Creation {
 	
 	String questionOrigins = "Taking a nap?";

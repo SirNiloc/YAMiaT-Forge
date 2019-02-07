@@ -55,7 +55,7 @@ public class EventHandlerYAM {
 	@SubscribeEvent
 	public void playerName(PlayerEvent.NameFormat event) {
 		if(event.getEntityLiving().hasCapability(BaseYAM.ABS_CAP, null)){
-			event.setDisplayname(event.getEntityPlayer().getName()+" ["+event.getEntityPlayer().getCapability(BaseYAM.ABS_CAP, null).getRace().getRaceName(event.getEntityPlayer())+"]");
+			event.setDisplayname(event.getEntityPlayer().getName()+" ["+event.getEntityPlayer().getCapability(BaseYAM.ABS_CAP, null).getRace().getName(event.getEntityPlayer())+"]");
 		}
 	}	
 	
