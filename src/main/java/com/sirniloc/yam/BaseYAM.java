@@ -1,8 +1,8 @@
 package com.sirniloc.yam;
 
-import com.sirniloc.yam.character.capa.CapabilityABS;
+import com.sirniloc.yam.character.capa.CapabilityYAM;
 import com.sirniloc.yam.character.capa.interfaces.IAbilityScores;
-import com.sirniloc.yam.handlers.YAMEventHandler;
+import com.sirniloc.yam.handlers.EventHandlerYAM;
 
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.MinecraftForge;
@@ -12,8 +12,8 @@ import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.Mod.EventHandler;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 
-@Mod(modid = YAM.MODID, version = YAM.VERSION)
-public class YAM
+@Mod(modid = BaseYAM.MODID, version = BaseYAM.VERSION)
+public class BaseYAM
 {
     public static final String MODID = "mdk";
     public static final String VERSION = "0.2";
@@ -22,7 +22,7 @@ public class YAM
     @CapabilityInject(IAbilityScores.class)
 	public static Capability<IAbilityScores> ABS_CAP = null;	
 	
-	public static final ResourceLocation STAT_ID = new ResourceLocation(YAM.MODID, "CAPABILITY_STATS");
+	public static final ResourceLocation STAT_ID = new ResourceLocation(BaseYAM.MODID, "CAPABILITY_STATS");
     
     @EventHandler
     public void preInit(FMLInitializationEvent event)    {
@@ -32,11 +32,11 @@ public class YAM
     @EventHandler
     public void init(FMLInitializationEvent event)
     {
-    	MinecraftForge.EVENT_BUS.register(new YAMEventHandler());
+    	MinecraftForge.EVENT_BUS.register(new EventHandlerYAM());
     }
     @EventHandler
     public void postInit(FMLInitializationEvent event)    {
-    	CapabilityABS.postInit();
+    	CapabilityYAM.postInit();
     }
     
     public static int calcMod(int aScore) {

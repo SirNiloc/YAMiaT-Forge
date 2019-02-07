@@ -7,7 +7,7 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumFacing;
 import net.minecraftforge.common.capabilities.Capability;
 
-public class YAMHelper {
+public class NBTHelper {
 
 	public static void readNBT(Capability<IAbilityScores> capability, IAbilityScores instance, EnumFacing side, NBTBase nbt) {
 		if(nbt instanceof NBTTagCompound) {

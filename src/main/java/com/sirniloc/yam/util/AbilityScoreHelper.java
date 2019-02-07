@@ -1,6 +1,6 @@
 package com.sirniloc.yam.util;
 
-public class ABSCalc {
+public class AbilityScoreHelper {
 
     public static final int MAX_ABS = 30;
     public static final int MAX_ABS_LEVEL = 21;

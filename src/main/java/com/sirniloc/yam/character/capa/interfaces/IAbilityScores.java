@@ -1,7 +1,7 @@
 package com.sirniloc.yam.character.capa.interfaces;
 
 import com.sirniloc.yam.character.Race;
-import com.sirniloc.yam.character.capa.ABS;
+import com.sirniloc.yam.character.capa.CharacterYAM;
 
 public interface IAbilityScores {
 
@@ -13,8 +13,8 @@ public interface IAbilityScores {
 	int getBody();
 	int getSpirit();
 	
-	ABS getABS();
-	void cloneABS(ABS abs);
+	CharacterYAM getABS();
+	void cloneABS(CharacterYAM abs);
 	
 	void setMind(int i);
 	void setBody(int i);

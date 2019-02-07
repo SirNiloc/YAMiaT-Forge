@@ -2,7 +2,7 @@ package com.sirniloc.yam.character;
 
 import java.util.Random;
 
-import com.sirniloc.yam.util.ABSCalc;
+import com.sirniloc.yam.util.AbilityScoreHelper;
 
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
@@ -71,14 +71,14 @@ public class Race {
 	}
 	
 	public int getMind() {
-		return MathHelper.clamp(this.mind, 0, ABSCalc.MAX_ABS_RACE);
+		return MathHelper.clamp(this.mind, 0, AbilityScoreHelper.MAX_ABS_RACE);
 	}
 	public int getBody() {
-		return MathHelper.clamp(this.body, 0, ABSCalc.MAX_ABS_RACE);
+		return MathHelper.clamp(this.body, 0, AbilityScoreHelper.MAX_ABS_RACE);
 		
 	}
 	public int getSpirit() {
-		return MathHelper.clamp(this.spirit, 0, ABSCalc.MAX_ABS_RACE);
+		return MathHelper.clamp(this.spirit, 0, AbilityScoreHelper.MAX_ABS_RACE);
 		
 	}
 	

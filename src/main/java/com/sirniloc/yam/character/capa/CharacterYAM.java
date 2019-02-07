@@ -1,9 +1,9 @@
 package com.sirniloc.yam.character.capa;
 
 import com.sirniloc.yam.character.Race;
-import com.sirniloc.yam.character.YAMHelper;
+import com.sirniloc.yam.character.NBTHelper;
 import com.sirniloc.yam.character.capa.interfaces.IAbilityScores;
-import com.sirniloc.yam.util.ABSCalc;
+import com.sirniloc.yam.util.AbilityScoreHelper;
 
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
@@ -11,7 +11,7 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.math.MathHelper;
 import net.minecraftforge.common.util.INBTSerializable;
 
-public class ABS implements IAbilityScores, INBTSerializable<NBTTagCompound> {
+public class CharacterYAM implements IAbilityScores, INBTSerializable<NBTTagCompound> {
 
 	private int race=-1;
 	private int mind,body,spirit;
@@ -25,7 +25,7 @@ public class ABS implements IAbilityScores, INBTSerializable<NBTTagCompound> {
 				" Spirit:"+this.getSpirit();
 	}
 
-	public ABS(EntityLivingBase e) {
+	public CharacterYAM(EntityLivingBase e) {
 		theEntity = e;
 		if(race<0 && !(e instanceof EntityPlayer))race=Race.getRandomRaceIndex();
 	}
@@ -61,7 +61,7 @@ public class ABS implements IAbilityScores, INBTSerializable<NBTTagCompound> {
 	}
 	@Override
 	public NBTTagCompound serializeNBT() {
-		return (NBTTagCompound) YAMHelper.writeNBT(null, this, null);
+		return (NBTTagCompound) NBTHelper.writeNBT(null, this, null);
 		/*
 		NBTTagCompound nbt = new NBTTagCompound();
 		nbt.setInteger("mind", this.mind);
@@ -73,7 +73,7 @@ public class ABS implements IAbilityScores, INBTSerializable<NBTTagCompound> {
 	@Override
 	public void deserializeNBT(NBTTagCompound nbt) {
 
-		YAMHelper.readNBT(null, this, null, nbt);
+		NBTHelper.readNBT(null, this, null, nbt);
 		/*
 		this.mind = nbt.getInteger("mind");
 		this.body = nbt.getInteger("body");
@@ -103,21 +103,21 @@ public class ABS implements IAbilityScores, INBTSerializable<NBTTagCompound> {
 
 	@Override
 	public void setMind(int i) {
-		this.mind = MathHelper.clamp(i, 0, ABSCalc.MAX_ABS_LEVEL);
+		this.mind = MathHelper.clamp(i, 0, AbilityScoreHelper.MAX_ABS_LEVEL);
 		
 	}
 
 
 	@Override
 	public void setBody(int i) {
-		this.body = MathHelper.clamp(i, 0, ABSCalc.MAX_ABS_LEVEL);
+		this.body = MathHelper.clamp(i, 0, AbilityScoreHelper.MAX_ABS_LEVEL);
 		
 	}
 
 
 	@Override
 	public void setSpirit(int i) {
-		this.spirit = MathHelper.clamp(i, 0, ABSCalc.MAX_ABS_LEVEL);
+		this.spirit = MathHelper.clamp(i, 0, AbilityScoreHelper.MAX_ABS_LEVEL);
 		
 	}
 
@@ -148,12 +148,12 @@ public class ABS implements IAbilityScores, INBTSerializable<NBTTagCompound> {
 	}
 
 	@Override
-	public ABS getABS() {
+	public CharacterYAM getABS() {
 		return this;
 	}
 
 	@Override
-	public void cloneABS(ABS abs) {
+	public void cloneABS(CharacterYAM abs) {
 		spirit=abs.getTotalSpirit();
 		mind=abs.getTotalMind();
 		body=abs.getTotalBody();
