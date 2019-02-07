@@ -23,10 +23,18 @@ public class YAMEventHandler {
 	
 	@SubscribeEvent	
     public void onLivingDamage(LivingDamageEvent event) {
-        //System.out.println("After Armor:"+event.getEntityLiving().getName() + " was attacked from "+ event.getSource().getTrueSource() +" for "+event.getAmount());
-        event.setAmount(getDamageAfterYAM(event.getAmount(),event.getEntityLiving(), event.getSource().getTrueSource()));
-        //System.out.println("After Stats:"+event.getEntityLiving().getName() + " was attacked from "+ event.getSource().getTrueSource() +" for "+event.getAmount());
-        
+        try {
+        	if(event.getEntityLiving().hasCapability(YAM.ABS_CAP, null) && event.getSource().getTrueSource().hasCapability(YAM.ABS_CAP, null)) {
+	        		
+	        	System.out.println("After Armor:"+event.getEntityLiving().getName() + " was attacked from "+ event.getSource().getTrueSource() +" for "+event.getAmount());
+	            
+	        	event.setAmount(getDamageAfterYAM(event.getAmount(),event.getEntityLiving(), event.getSource().getTrueSource()));
+	        	System.out.println("After Stats:"+event.getEntityLiving().getName() + " was attacked from "+ event.getSource().getTrueSource() +" for "+event.getAmount());
+	        	}
+        }catch(java.lang.NullPointerException e) {
+        	//TODO Find Cause of NullPointerException
+        }
+		
         
 	}
 	@SubscribeEvent
@@ -51,8 +59,14 @@ public class YAMEventHandler {
 	
 	@SubscribeEvent
 	public void onLivingUpdate(LivingEvent.LivingUpdateEvent event) {
-		if(event.getEntityLiving().hasCapability(YAM.ABS_CAP, null)) {
-				event.getEntityLiving().setHealth(getHealFromYAM(event.getEntityLiving()));
+		float hpMax = event.getEntityLiving().getMaxHealth();
+		float hpCur = event.getEntityLiving().getHealth();
+		float hpBloodied = hpMax/4;
+		boolean isYAM = event.getEntityLiving().hasCapability(YAM.ABS_CAP, null);
+		
+		if(isYAM && hpCur<(hpMax-1) && hpCur>hpBloodied) {
+			
+			event.getEntityLiving().setHealth(getHealFromYAM(event.getEntityLiving()));
 				
 		}
 		
@@ -66,16 +80,17 @@ public class YAMEventHandler {
 	
 	public static float getHealFromYAM(EntityLivingBase e) {
 
+		System.out.println(e.getName()+e.getHealth()+"/"+e.getMaxHealth());	
+		
 		float mod = ABSCalc.calcMod(e.getCapability(YAM.ABS_CAP, null).getTotalSpirit())+5;
 		int seconds = 20;
 				
-		return (mod/15)/(20*seconds);
+		return e.getHealth()+(mod/15)/(20*seconds);
 		
 	}
 	
 	public static float getDamageAfterYAM(float damage, EntityLivingBase defender, Entity attacker)
 	{
-		if(defender.hasCapability(YAM.ABS_CAP, null) && attacker.hasCapability(YAM.ABS_CAP, null)) {
 			
 			float trueDamage = damage;
 			
@@ -96,9 +111,7 @@ public class YAMEventHandler {
 			float outputDamage = trueDamage * (dm/am);
 			
 		    return outputDamage;
-	    }
-		
-		return damage;
+	    
     }
 	 
 }
