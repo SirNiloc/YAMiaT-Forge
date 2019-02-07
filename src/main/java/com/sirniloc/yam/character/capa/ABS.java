@@ -1,6 +1,7 @@
 package com.sirniloc.yam.character.capa;
 
 import com.sirniloc.yam.character.Race;
+import com.sirniloc.yam.character.YAMHelper;
 import com.sirniloc.yam.character.capa.interfaces.IAbilityScores;
 import com.sirniloc.yam.util.ABSCalc;
 
@@ -58,25 +59,27 @@ public class ABS implements IAbilityScores, INBTSerializable<NBTTagCompound> {
 		return this.spirit;
 		
 	}
-	//
-	//TODO Fix
 	@Override
-	public NBTTagCompound serializeNBT() {	
+	public NBTTagCompound serializeNBT() {
+		return (NBTTagCompound) YAMHelper.writeNBT(null, this, null);
+		/*
 		NBTTagCompound nbt = new NBTTagCompound();
 		nbt.setInteger("mind", this.mind);
 		nbt.setInteger("body", this.body);
 		nbt.setInteger("spirit", this.spirit);
 		nbt.setInteger("race", this.race);
-		return nbt;
+		return nbt;*/
 	}
 	@Override
 	public void deserializeNBT(NBTTagCompound nbt) {
 
-		System.err.println("deserializeNBT");
+		YAMHelper.readNBT(null, this, null, nbt);
+		/*
 		this.mind = nbt.getInteger("mind");
 		this.body = nbt.getInteger("body");
 		this.spirit = nbt.getInteger("spirit");
 		this.race = nbt.getInteger("race");
+		*/
 		
 	}
 

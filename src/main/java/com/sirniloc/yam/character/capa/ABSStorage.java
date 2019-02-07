@@ -2,10 +2,10 @@ package com.sirniloc.yam.character.capa;
 
 import java.util.concurrent.Callable;
 
+import com.sirniloc.yam.character.YAMHelper;
 import com.sirniloc.yam.character.capa.interfaces.IAbilityScores;
 
 import net.minecraft.nbt.NBTBase;
-import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumFacing;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.Capability.IStorage;
@@ -14,23 +14,12 @@ public class ABSStorage implements IStorage<IAbilityScores> {
 
 	@Override
 	public NBTBase writeNBT(Capability<IAbilityScores> capability, IAbilityScores instance, EnumFacing side) {
-		NBTTagCompound nbt = new NBTTagCompound();
-		nbt.setInteger("mind", instance.getMind());
-		nbt.setInteger("body", instance.getBody());
-		nbt.setInteger("spirit", instance.getSpirit());
-		nbt.setInteger("race", instance.getRaceInt());
-		return nbt;
+		return YAMHelper.writeNBT(capability, instance, side);
 	}
 
 	@Override
 	public void readNBT(Capability<IAbilityScores> capability, IAbilityScores instance, EnumFacing side, NBTBase nbt) {
-		if(nbt instanceof NBTTagCompound) {
-			NBTTagCompound tag = (NBTTagCompound)nbt;
-			instance.setMind(tag.getInteger("mind"));
-			instance.setBody(tag.getInteger("body"));
-			instance.setSpirit(tag.getInteger("spirit"));
-			instance.setRaceInt(tag.getInteger("race"));
-		}
+		YAMHelper.readNBT(capability, instance, side, nbt);
 	}
 
 	public static class Factory implements Callable<IAbilityScores> {
