@@ -27,7 +27,7 @@ public class CharacterYAM implements IAbilityScores, INBTSerializable<NBTTagComp
 
 	public CharacterYAM(EntityLivingBase e) {
 		theEntity = e;
-		if(raceIndex<0 && !(e instanceof EntityPlayer))raceIndex=Race.getRandomRaceIndex(Race.RACE_COUNT);
+		if(raceIndex<0 && !(e instanceof EntityPlayer))raceIndex=Race.getRandomIndex(Race.RACE_COUNT);
 	}
 	
 		@Override
@@ -123,7 +123,7 @@ public class CharacterYAM implements IAbilityScores, INBTSerializable<NBTTagComp
 	
 	@Override
 	public Race getRace() {
-		if(this.theEntity instanceof EntityPlayer && raceIndex<0) raceIndex = Race.getRandomRaceIndex(Race.RACE_COUNT);
+		if(this.theEntity instanceof EntityPlayer && raceIndex<0) raceIndex = Race.getRandomIndex(Race.RACE_COUNT);
 		
 		return Race.getRaceFromInt(this.raceIndex);
 	}
