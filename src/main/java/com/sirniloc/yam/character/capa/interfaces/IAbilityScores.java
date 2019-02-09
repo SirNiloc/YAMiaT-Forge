@@ -3,6 +3,8 @@ package com.sirniloc.yam.character.capa.interfaces;
 import com.sirniloc.yam.character.Race;
 import com.sirniloc.yam.character.capa.CharacterYAM;
 
+import net.minecraft.entity.EntityLivingBase;
+
 public interface IAbilityScores {
 
 	int getTotalMind();
@@ -29,7 +31,19 @@ public interface IAbilityScores {
 	int getRaceInt();
 	void setRaceInt(int i);
 	
+	void setExpDouble(double double1);
+	void setLevelInt(int integer);
 	
+	double getExp();
+	int getLevel();
+	
+	double getNextLevelExpCost();
+	
+	void addAttacker(EntityLivingBase attacker);
+	EntityLivingBase[] getRecentAttackers();
+	float[] getRecentAttTime();
+	void update();
+	void removeAttacker(int i);
 	
 	
 

@@ -47,15 +47,14 @@ public class EventHandlerYAM {
 	}
 	
 	@SubscribeEvent
-	public void onPlayerRespawn(PlayerEvent.Clone event) {
-		
-		event.getEntityLiving().getCapability(BaseYAM.ABS_CAP, null).cloneABS(event.getOriginal().getCapability(BaseYAM.ABS_CAP, null).getABS());	
-		
+	public void onPlayerRespawn(PlayerEvent.Clone event) {		
+		event.getEntityLiving().getCapability(BaseYAM.ABS_CAP, null).cloneABS(event.getOriginal().getCapability(BaseYAM.ABS_CAP, null).getABS());		
 	}
+	
 	@SubscribeEvent
 	public void playerName(PlayerEvent.NameFormat event) {
 		if(event.getEntityLiving().hasCapability(BaseYAM.ABS_CAP, null)){
-			event.setDisplayname(event.getEntityPlayer().getName()+" ["+event.getEntityPlayer().getCapability(BaseYAM.ABS_CAP, null).getRace().getName(event.getEntityPlayer())+"]");
+			event.setDisplayname(CharacterYAM.getNameYAM(event.getEntityLiving()));
 		}
 	}	
 	
@@ -66,9 +65,12 @@ public class EventHandlerYAM {
 		float hpBloodied = hpMax/4;
 		boolean isYAM = event.getEntityLiving().hasCapability(BaseYAM.ABS_CAP, null);
 		
+		if(isYAM) event.getEntityLiving().getCapability(BaseYAM.ABS_CAP, null).update();
+		
 		if(isYAM && hpCur<(hpMax-1) && hpCur>hpBloodied) 		
 			event.getEntityLiving().setHealth(getHealFromYAM(event.getEntityLiving()));	
-	}	
+	}
+	
 	
 	public static ICapabilityProvider createProvider(IAbilityScores absCap) {
 		return new SimpleCapabilityProvider<IAbilityScores>(BaseYAM.ABS_CAP, null, absCap);
@@ -85,10 +87,16 @@ public class EventHandlerYAM {
 	public static float getDamageAfterYAM(float damage, EntityLivingBase defender, Entity attacker)
 	{
 			
+			IAbilityScores dCap = defender.getCapability(BaseYAM.ABS_CAP, null);
+			IAbilityScores aCap = defender.getCapability(BaseYAM.ABS_CAP, null);
+			try {
+				dCap.addAttacker((EntityLivingBase)attacker);
+			}catch(NullPointerException e) {}
+			
 			float trueDamage = damage;
 			
-			int statDefense = AbilityScoreHelper.calcMod(defender.getCapability(BaseYAM.ABS_CAP, null).getTotalBody());
-			int statAttack = AbilityScoreHelper.calcMod(attacker.getCapability(BaseYAM.ABS_CAP, null).getTotalMind());
+			int statDefense = AbilityScoreHelper.calcMod(dCap.getTotalBody());
+			int statAttack = AbilityScoreHelper.calcMod(aCap.getTotalMind());
 						
 			float defMod = statDefense+5.0F;
 			float attMod = statAttack+5.0F;

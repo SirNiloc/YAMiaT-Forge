@@ -1,5 +1,8 @@
 package com.sirniloc.yam.character.capa;
 
+import java.util.Arrays;
+
+import com.sirniloc.yam.BaseYAM;
 import com.sirniloc.yam.character.NBTHelper;
 import com.sirniloc.yam.character.Race;
 import com.sirniloc.yam.character.capa.interfaces.IAbilityScores;
@@ -14,8 +17,14 @@ import net.minecraftforge.common.util.INBTSerializable;
 public class CharacterYAM implements IAbilityScores, INBTSerializable<NBTTagCompound> {
 
 	private int raceIndex=-1;
-	private int mind,body,spirit;
+	private int mind,body,spirit,level;
+	private double exp;
 	public EntityLivingBase theEntity;
+	
+	private static final float DECAY = 200;
+	
+	private EntityLivingBase[] recentAttackers;
+	private float recentAttackersTime[];
 	
 	@Override
 	public String toString() {		
@@ -62,24 +71,11 @@ public class CharacterYAM implements IAbilityScores, INBTSerializable<NBTTagComp
 	@Override
 	public NBTTagCompound serializeNBT() {
 		return (NBTTagCompound) NBTHelper.writeNBT(null, this, null);
-		/*
-		NBTTagCompound nbt = new NBTTagCompound();
-		nbt.setInteger("mind", this.mind);
-		nbt.setInteger("body", this.body);
-		nbt.setInteger("spirit", this.spirit);
-		nbt.setInteger("race", this.race);
-		return nbt;*/
 	}
 	@Override
 	public void deserializeNBT(NBTTagCompound nbt) {
 
 		NBTHelper.readNBT(null, this, null, nbt);
-		/*
-		this.mind = nbt.getInteger("mind");
-		this.body = nbt.getInteger("body");
-		this.spirit = nbt.getInteger("spirit");
-		this.race = nbt.getInteger("race");
-		*/
 		
 	}
 
@@ -151,6 +147,103 @@ public class CharacterYAM implements IAbilityScores, INBTSerializable<NBTTagComp
 		mind=abs.getTotalMind();
 		body=abs.getTotalBody();
 		raceIndex=abs.getRaceInt();
+	}
+
+	@Override
+	public void setExpDouble(double d) {
+		this.exp = d;
+	}
+
+	@Override
+	public void setLevelInt(int i) {
+		this.level = MathHelper.clamp(i, 1, 50);
+	}
+
+	@Override
+	public double getExp() {
+		return this.exp;
+	}
+
+	@Override
+	public int getLevel() {
+		this.level = MathHelper.clamp(this.level, 1, 50);
+		return this.level;
+	}
+
+	@Override
+	public double getNextLevelExpCost() {
+		return (this.getLevel() + ((1+this.getLevel())/2))*100;
+	}
+
+	public static String getNameYAM(EntityLivingBase e) {
+		IAbilityScores cap = e.getCapability(BaseYAM.ABS_CAP, null);
+		String r = "["+cap.getLevel()+"] "+e.getName()+" ("+cap.getRace().getName(e)+")";
+		return r;
+	}
+	
+	@Override
+	public void addAttacker(EntityLivingBase n) {
+		if(Arrays.stream(recentAttackers).anyMatch(n::equals)) {
+			for(int i=0; i< recentAttackers.length;i++) {
+				if(this.recentAttackers[i].equals(n)) {
+					this.recentAttackersTime[i]=DECAY;
+					break;
+				}
+			}
+		}else {
+			EntityLivingBase[] clone = recentAttackers.clone();
+			float[] cloneTime = this.recentAttackersTime.clone();
+			
+			recentAttackers = new EntityLivingBase[clone.length];
+			recentAttackersTime = new float[cloneTime.length];
+			
+			for(int i=0; i< clone.length;i++) {
+				recentAttackers[i]=clone[i];
+				this.recentAttackersTime[i]=cloneTime[i];
+			}
+			this.recentAttackers[clone.length]=n;
+			this.recentAttackersTime[cloneTime.length]=DECAY;
+		}
+		
+		
+	}	
+	
+	@Override
+	public void removeAttacker(int j) {
+		EntityLivingBase[] clone = recentAttackers.clone();
+		float[] cloneTime = this.recentAttackersTime.clone();
+		int ii = 0;
+		
+		for(int i=0; i< clone.length;i++) {
+			if(i!=j) {
+				ii++;
+				recentAttackers[ii]=clone[i];
+				this.recentAttackersTime[ii]=cloneTime[i];
+			}
+		}
+	}
+	
+	@Override
+	public void update() {
+		try{
+			int ogLength = this.recentAttackersTime.length;
+			
+			for(int i=ogLength; i>0;i--) {
+				recentAttackersTime[i]--;
+				if(recentAttackersTime[i]<=0) removeAttacker(i);
+			}
+		}catch(NullPointerException e) {}
+	}
+
+	@Override
+	public EntityLivingBase[] getRecentAttackers() {
+		return recentAttackers;
+		
+	}
+
+	@Override
+	public float[] getRecentAttTime() {
+		return this.recentAttackersTime;
 	}
 
 }

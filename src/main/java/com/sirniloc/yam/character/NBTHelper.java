@@ -16,6 +16,8 @@ public class NBTHelper {
 			instance.setBody(tag.getInteger("body"));
 			instance.setSpirit(tag.getInteger("spirit"));
 			instance.setRaceInt(tag.getInteger("race"));
+			instance.setExpDouble(tag.getDouble("exp"));
+			instance.setLevelInt(tag.getInteger("level"));
 		}
 	}
 	
@@ -25,6 +27,8 @@ public class NBTHelper {
 		nbt.setInteger("body", instance.getBody());
 		nbt.setInteger("spirit", instance.getSpirit());
 		nbt.setInteger("race", instance.getRaceInt());
+		nbt.setDouble("exp", instance.getExp());
+		nbt.setInteger("level", instance.getLevel());
 		return nbt;
 		
 	}
