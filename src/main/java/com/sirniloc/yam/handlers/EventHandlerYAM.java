@@ -91,6 +91,7 @@ public class EventHandlerYAM {
 			IAbilityScores aCap = defender.getCapability(BaseYAM.ABS_CAP, null);
 			try {
 				dCap.addAttacker((EntityLivingBase)attacker);
+				//TODO add exp death
 			}catch(NullPointerException e) {}
 			
 			float trueDamage = damage;
