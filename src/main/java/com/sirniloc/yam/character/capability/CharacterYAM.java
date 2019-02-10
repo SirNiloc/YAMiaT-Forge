@@ -2,7 +2,6 @@ package com.sirniloc.yam.character.capability;
 
 import java.util.Arrays;
 
-import com.sirniloc.yam.BaseYAM;
 import com.sirniloc.yam.character.CharacterNBT;
 import com.sirniloc.yam.character.capability.interfaces.IYam;
 import com.sirniloc.yam.character.race.Race;
@@ -132,7 +131,7 @@ public class CharacterYAM implements IYam, INBTSerializable<NBTTagCompound> {
 	}
 
 	@Override
-	public CharacterYAM getABS() {
+	public CharacterYAM getCharacter() {
 		return this;
 	}
 
@@ -263,15 +262,6 @@ public class CharacterYAM implements IYam, INBTSerializable<NBTTagCompound> {
 		return this.recentAttackersTime;
 	}
 
-	@Override
-	public void deathStuff() {
-		double d = this.theEntity.getMaxHealth()*(this.getLevel()*1)/recentAttackers.length;
-		
-		for(int i=0; i< recentAttackers.length;i++) {
-			IYam aCap = recentAttackers[i].getCapability(BaseYAM.ABS_CAP, null);
-				aCap.addExp(d);
-				}
-		}
 
 	@Override
 	public void addExp(double d) {

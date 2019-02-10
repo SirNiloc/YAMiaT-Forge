@@ -15,7 +15,7 @@ public interface IYam {
 	int getBody();
 	int getSpirit();
 	
-	CharacterYAM getABS();
+	CharacterYAM getCharacter();
 	void cloneABS(CharacterYAM abs);
 	
 	void setMind(double i);
@@ -43,9 +43,8 @@ public interface IYam {
 	EntityLivingBase[] getRecentAttackers();
 	float[] getRecentAttTime();
 	void update();
-	void removeAttacker(int i);
-	void deathStuff();
 	void addExp(double d);
+	void removeAttacker(int j);
 	
 	
 

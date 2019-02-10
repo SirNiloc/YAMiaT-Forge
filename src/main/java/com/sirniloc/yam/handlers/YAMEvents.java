@@ -39,7 +39,7 @@ public class YAMEvents {
 	
 	@SubscribeEvent
 	public void onPlayerRespawn(PlayerEvent.Clone event) {		
-		event.getEntityLiving().getCapability(BaseYAM.ABS_CAP, null).cloneABS(event.getOriginal().getCapability(BaseYAM.ABS_CAP, null).getABS());		
+		event.getEntityLiving().getCapability(BaseYAM.ABS_CAP, null).cloneABS(event.getOriginal().getCapability(BaseYAM.ABS_CAP, null).getCharacter());		
 	}
 	
 	@SubscribeEvent
