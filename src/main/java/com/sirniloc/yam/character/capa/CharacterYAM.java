@@ -260,9 +260,13 @@ public class CharacterYAM implements IAbilityScores, INBTSerializable<NBTTagComp
 
 	@Override
 	public void deathStuff() {
-		double d =0;
+		double d = (this.getLevel()*1)/recentAttackers.length;
+		
 		for(int i=0; i< recentAttackers.length;i++) {
-				recentAttackers[i].getCapability(BaseYAM.ABS_CAP, null).addExp(d);
+			IAbilityScores aCap = recentAttackers[i].getCapability(BaseYAM.ABS_CAP, null);
+				aCap.addExp(d);
+				
+				System.out.println(aCap.getABS().getNameYAM(recentAttackers[i])+" "+aCap.getExp() +"/"+aCap.getNextLevelExpCost());
 			}
 		}
 
