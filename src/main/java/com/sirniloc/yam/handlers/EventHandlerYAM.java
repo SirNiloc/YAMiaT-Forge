@@ -14,6 +14,7 @@ import net.minecraftforge.common.capabilities.ICapabilityProvider;
 import net.minecraftforge.event.AttachCapabilitiesEvent;
 import net.minecraftforge.event.entity.EntityEvent.EntityConstructing;
 import net.minecraftforge.event.entity.living.LivingDamageEvent;
+import net.minecraftforge.event.entity.living.LivingDeathEvent;
 import net.minecraftforge.event.entity.living.LivingEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
@@ -89,10 +90,9 @@ public class EventHandlerYAM {
 			
 			IAbilityScores dCap = defender.getCapability(BaseYAM.ABS_CAP, null);
 			IAbilityScores aCap = defender.getCapability(BaseYAM.ABS_CAP, null);
-			try {
-				dCap.addAttacker((EntityLivingBase)attacker);
-				//TODO add exp death
-			}catch(NullPointerException e) {}
+			
+			dCap.addAttacker((EntityLivingBase)attacker);
+			
 			
 			float trueDamage = damage;
 			
@@ -112,8 +112,20 @@ public class EventHandlerYAM {
 			
 			float outputDamage = trueDamage * (dm/am);
 			
+			
 		    return outputDamage;
 	    
     }
+	
+	@SubscribeEvent
+	public void deathEvent(LivingDeathEvent event) {
+		try {
+	    	if(event.getEntityLiving().hasCapability(BaseYAM.ABS_CAP, null)) {
+	        	event.getEntityLiving().getCapability(BaseYAM.ABS_CAP, null).deathStuff();
+	        }
+		}catch(NullPointerException e) {
+		}
+        
+	}
 	 
 }

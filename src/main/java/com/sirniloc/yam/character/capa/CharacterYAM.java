@@ -151,7 +151,14 @@ public class CharacterYAM implements IAbilityScores, INBTSerializable<NBTTagComp
 
 	@Override
 	public void setExpDouble(double d) {
-		this.exp = d;
+		double curExp = this.exp;
+		
+		if(this.getNextLevelExpCost()<=(d+curExp)) {
+			double leftOverExp = (d+curExp)-this.getNextLevelExpCost();
+			
+			this.level++;			
+			this.addExp(leftOverExp);
+		}else this.exp = d;
 	}
 
 	@Override
@@ -183,26 +190,31 @@ public class CharacterYAM implements IAbilityScores, INBTSerializable<NBTTagComp
 	
 	@Override
 	public void addAttacker(EntityLivingBase n) {
-		if(Arrays.stream(recentAttackers).anyMatch(n::equals)) {
-			for(int i=0; i< recentAttackers.length;i++) {
-				if(this.recentAttackers[i].equals(n)) {
-					this.recentAttackersTime[i]=DECAY;
-					break;
+		try {
+			if(Arrays.stream(recentAttackers).anyMatch(n::equals)) {
+				for(int i=0; i< recentAttackers.length;i++) {
+					if(this.recentAttackers[i].equals(n)) {
+						this.recentAttackersTime[i]=DECAY;
+						break;
+					}
 				}
+			}else {
+				EntityLivingBase[] oldAttackers = this.recentAttackers.clone();
+				float[] oldTimes = this.recentAttackersTime.clone();
+				
+				recentAttackers = new EntityLivingBase[oldAttackers.length+1];
+				recentAttackersTime = new float[oldTimes.length+1];
+				
+				for(int i=0; i< oldAttackers.length;i++) {
+					recentAttackers[i]=oldAttackers[i];
+					this.recentAttackersTime[i]=oldTimes[i];
+				}
+				this.recentAttackers[oldAttackers.length]=n;
+				this.recentAttackersTime[oldTimes.length]=DECAY;
 			}
-		}else {
-			EntityLivingBase[] clone = recentAttackers.clone();
-			float[] cloneTime = this.recentAttackersTime.clone();
-			
-			recentAttackers = new EntityLivingBase[clone.length];
-			recentAttackersTime = new float[cloneTime.length];
-			
-			for(int i=0; i< clone.length;i++) {
-				recentAttackers[i]=clone[i];
-				this.recentAttackersTime[i]=cloneTime[i];
-			}
-			this.recentAttackers[clone.length]=n;
-			this.recentAttackersTime[cloneTime.length]=DECAY;
+		}catch(NullPointerException e) {
+			recentAttackers = new EntityLivingBase[]{n};
+			recentAttackersTime = new float[] {DECAY};
 		}
 		
 		
@@ -228,7 +240,7 @@ public class CharacterYAM implements IAbilityScores, INBTSerializable<NBTTagComp
 		try{
 			int ogLength = this.recentAttackersTime.length;
 			
-			for(int i=ogLength; i>0;i--) {
+			for(int i=ogLength-1; i>=0;i--) {
 				recentAttackersTime[i]--;
 				if(recentAttackersTime[i]<=0) removeAttacker(i);
 			}
@@ -245,5 +257,19 @@ public class CharacterYAM implements IAbilityScores, INBTSerializable<NBTTagComp
 	public float[] getRecentAttTime() {
 		return this.recentAttackersTime;
 	}
+
+	@Override
+	public void deathStuff() {
+		double d =0;
+		for(int i=0; i< recentAttackers.length;i++) {
+				recentAttackers[i].getCapability(BaseYAM.ABS_CAP, null).addExp(d);
+			}
+		}
+
+	@Override
+	public void addExp(double d) {
+		this.setExpDouble(this.getExp()+d);		
+	}
+	
 
 }

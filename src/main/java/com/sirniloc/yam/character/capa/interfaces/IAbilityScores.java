@@ -44,6 +44,8 @@ public interface IAbilityScores {
 	float[] getRecentAttTime();
 	void update();
 	void removeAttacker(int i);
+	void deathStuff();
+	void addExp(double d);
 	
 	
 
