@@ -16,7 +16,7 @@ import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 public class BaseYAM
 {
     public static final String MODID = "yam";
-    public static final String VERSION = "0.3";
+    public static final String VERSION = "0.4";
     
     
     @CapabilityInject(IAbilityScores.class)
