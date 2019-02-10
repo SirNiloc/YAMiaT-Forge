@@ -20,8 +20,8 @@ import net.minecraftforge.common.util.INBTSerializable;
 public class CharacterYAM implements IAbilityScores, INBTSerializable<NBTTagCompound> {
 
 	private int raceIndex=-1;
-	private int mind,body,spirit,level;
-	private double exp;
+	private int level;
+	private double exp,mind,body,spirit;
 	public EntityLivingBase theEntity;
 	
 	private static final float DECAY = 200;
@@ -59,16 +59,16 @@ public class CharacterYAM implements IAbilityScores, INBTSerializable<NBTTagComp
 	//
 	@Override
 	public int getMind() {
-		return this.mind;
+		return (int) this.mind;
 	}
 	@Override
 	public int getBody() {
-		return this.body;
+		return (int) this.body;
 		
 	}
 	@Override
 	public int getSpirit() {
-		return this.spirit;
+		return (int) this.spirit;
 		
 	}
 	@Override
@@ -101,21 +101,21 @@ public class CharacterYAM implements IAbilityScores, INBTSerializable<NBTTagComp
 
 
 	@Override
-	public void setMind(int i) {
+	public void setMind(double i) {
 		this.mind = MathHelper.clamp(i, 0, AbilityScoreHelper.MAX_ABS_LEVEL);
 		
 	}
 
 
 	@Override
-	public void setBody(int i) {
+	public void setBody(double i) {
 		this.body = MathHelper.clamp(i, 0, AbilityScoreHelper.MAX_ABS_LEVEL);
 		
 	}
 
 
 	@Override
-	public void setSpirit(int i) {
+	public void setSpirit(double i) {
 		this.spirit = MathHelper.clamp(i, 0, AbilityScoreHelper.MAX_ABS_LEVEL);
 		
 	}
@@ -159,23 +159,51 @@ public class CharacterYAM implements IAbilityScores, INBTSerializable<NBTTagComp
 		if(this.getNextLevelExpCost()<=(d+curExp)) {
 			double leftOverExp = (d+curExp)-this.getNextLevelExpCost();
 			
-			this.level++;			
+			this.levelUp();			
 			this.addExp(leftOverExp);
 
-			if(this.theEntity instanceof EntityPlayerMP) {
-				TextComponentString message = new TextComponentString("Level Up!");
-				message.setStyle(message.getStyle().setColor(TextFormatting.GOLD));
-				this.theEntity.sendMessage(message);
-			}
 		}else {
 			this.exp = d;
 
 			if(this.theEntity instanceof EntityPlayerMP) {
+				try {
 				TextComponentString message = new TextComponentString("Exp:"+this.getExp() +"/"+this.getNextLevelExpCost());
 				message.setStyle(message.getStyle().setColor(TextFormatting.GREEN));
 				this.theEntity.sendMessage(message);
+				}catch(NullPointerException e) {
+					//TODO Find Error
+				}
 			}
 		}
+	}
+
+	private void levelUp() {
+		this.level++;		
+		try {
+		if(this.theEntity instanceof EntityPlayerMP) {
+			TextComponentString message = new TextComponentString("Level Up!");
+			message.setStyle(message.getStyle().setColor(TextFormatting.GOLD));
+			this.theEntity.sendMessage(message);
+		}
+		}catch(NullPointerException e) {
+			
+		}
+		this.checkStats();		
+	}
+	private void checkStats() {
+		this.setBody(this.level*(this.getRace().getBody()/3));
+		this.setMind(this.level*(this.getRace().getMind()/3));
+		this.setSpirit(this.level*(this.getRace().getSpirit()/3));
+		try {
+		if(this.theEntity instanceof EntityPlayerMP) {
+			TextComponentString message = new TextComponentString("Mind:"+this.getMind()+" Body:"+this.getBody()+" Spirit:"+this.getSpirit());
+			message.setStyle(message.getStyle().setColor(TextFormatting.GOLD));
+			this.theEntity.sendMessage(message);
+		}
+		}catch(java.lang.NullPointerException e) {
+			
+		}
+		
 	}
 
 	@Override
@@ -277,7 +305,7 @@ public class CharacterYAM implements IAbilityScores, INBTSerializable<NBTTagComp
 
 	@Override
 	public void deathStuff() {
-		double d = 100*(this.getLevel()*1)/recentAttackers.length;
+		double d = this.theEntity.getMaxHealth()*(this.getLevel()*1)/recentAttackers.length;
 		
 		for(int i=0; i< recentAttackers.length;i++) {
 			IAbilityScores aCap = recentAttackers[i].getCapability(BaseYAM.ABS_CAP, null);

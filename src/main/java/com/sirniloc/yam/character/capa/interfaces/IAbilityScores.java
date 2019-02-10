@@ -18,9 +18,9 @@ public interface IAbilityScores {
 	CharacterYAM getABS();
 	void cloneABS(CharacterYAM abs);
 	
-	void setMind(int i);
-	void setBody(int i);
-	void setSpirit(int i);
+	void setMind(double i);
+	void setBody(double i);
+	void setSpirit(double i);
 	
 
 	void syncSpawn();

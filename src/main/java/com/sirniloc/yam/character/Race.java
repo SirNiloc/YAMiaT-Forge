@@ -11,7 +11,7 @@ import net.minecraft.util.math.MathHelper;
 
 public class Race implements IRace{
 	protected String name,subName;
-	int mind,body,spirit;
+	double mind,body,spirit;
 	
 	static Race noRace = new Race();
 	
@@ -72,16 +72,16 @@ public class Race implements IRace{
 	}
 	@Override
 	public int getMind() {
-		return MathHelper.clamp(this.mind, 0, AbilityScoreHelper.MAX_ABS_RACE);
+		return (int) MathHelper.clamp(this.mind, 0, AbilityScoreHelper.MAX_ABS_RACE);
 	}
 	@Override
 	public int getBody() {
-		return MathHelper.clamp(this.body, 0, AbilityScoreHelper.MAX_ABS_RACE);
+		return (int) (MathHelper.clamp(this.body, 0, AbilityScoreHelper.MAX_ABS_RACE));
 		
 	}
 	@Override
 	public int getSpirit() {
-		return MathHelper.clamp(this.spirit, 0, AbilityScoreHelper.MAX_ABS_RACE);
+		return (int) MathHelper.clamp(this.spirit, 0, AbilityScoreHelper.MAX_ABS_RACE);
 		
 	}
 	@Override
