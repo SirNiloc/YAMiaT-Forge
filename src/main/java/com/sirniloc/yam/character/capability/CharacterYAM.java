@@ -3,9 +3,9 @@ package com.sirniloc.yam.character.capability;
 import java.util.Arrays;
 
 import com.sirniloc.yam.BaseYAM;
-import com.sirniloc.yam.character.NBTHelper;
-import com.sirniloc.yam.character.Race;
+import com.sirniloc.yam.character.CharacterNBT;
 import com.sirniloc.yam.character.capability.interfaces.IYam;
+import com.sirniloc.yam.character.race.Race;
 import com.sirniloc.yam.systems.LevelingSystem;
 import com.sirniloc.yam.util.AbilityScoreHelper;
 
@@ -74,12 +74,12 @@ public class CharacterYAM implements IYam, INBTSerializable<NBTTagCompound> {
 	}
 	@Override
 	public NBTTagCompound serializeNBT() {
-		return (NBTTagCompound) NBTHelper.writeNBT(null, this, null);
+		return (NBTTagCompound) CharacterNBT.writeNBT(null, this, null);
 	}
 	@Override
 	public void deserializeNBT(NBTTagCompound nbt) {
 
-		NBTHelper.readNBT(null, this, null, nbt);
+		CharacterNBT.readNBT(null, this, null, nbt);
 		
 	}
 

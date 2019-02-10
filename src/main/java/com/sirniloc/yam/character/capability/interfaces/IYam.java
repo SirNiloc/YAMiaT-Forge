@@ -1,7 +1,7 @@
 package com.sirniloc.yam.character.capability.interfaces;
 
-import com.sirniloc.yam.character.Race;
 import com.sirniloc.yam.character.capability.CharacterYAM;
+import com.sirniloc.yam.character.race.Race;
 
 import net.minecraft.entity.EntityLivingBase;
 

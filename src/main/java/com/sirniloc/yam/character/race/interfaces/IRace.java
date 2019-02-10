@@ -1,4 +1,4 @@
-package com.sirniloc.yam.character.capability.interfaces;
+package com.sirniloc.yam.character.race.interfaces;
 
 import net.minecraft.entity.EntityLivingBase;
 

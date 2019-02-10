@@ -43,7 +43,6 @@ public class BaseYAM
     }
     
     public static int calcMod(int aScore) {
-
     	if(aScore == 1) return -5;
     	if(aScore <= 3) return -4;
     	if(aScore <= 5) return -3;

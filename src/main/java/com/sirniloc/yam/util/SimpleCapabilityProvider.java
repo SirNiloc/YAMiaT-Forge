@@ -1,4 +1,4 @@
-package com.sirniloc.yam.character.capability;
+package com.sirniloc.yam.util;
 
 import javax.annotation.Nullable;
 

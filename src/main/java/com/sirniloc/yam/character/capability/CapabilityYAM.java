@@ -2,6 +2,7 @@ package com.sirniloc.yam.character.capability;
 
 import com.sirniloc.yam.BaseYAM;
 import com.sirniloc.yam.character.capability.interfaces.IYam;
+import com.sirniloc.yam.util.SimpleCapabilityProvider;
 
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraftforge.common.capabilities.CapabilityManager;

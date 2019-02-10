@@ -4,7 +4,7 @@ import com.sirniloc.yam.BaseYAM;
 import com.sirniloc.yam.character.capability.CapabilityYAM;
 import com.sirniloc.yam.character.capability.CharacterYAM;
 import com.sirniloc.yam.character.capability.interfaces.IYam;
-import com.sirniloc.yam.systems.combat.CombatSystem;
+import com.sirniloc.yam.systems.CombatSystem;
 
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;

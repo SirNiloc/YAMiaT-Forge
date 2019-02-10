@@ -7,7 +7,7 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumFacing;
 import net.minecraftforge.common.capabilities.Capability;
 
-public class NBTHelper {
+public class CharacterNBT {
 
 	public static void readNBT(Capability<IYam> capability, IYam instance, EnumFacing side, NBTBase nbt) {
 		if(nbt instanceof NBTTagCompound) {

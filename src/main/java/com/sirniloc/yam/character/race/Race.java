@@ -1,8 +1,8 @@
-package com.sirniloc.yam.character;
+package com.sirniloc.yam.character.race;
 
 import java.util.Random;
 
-import com.sirniloc.yam.character.capability.interfaces.IRace;
+import com.sirniloc.yam.character.race.interfaces.IRace;
 import com.sirniloc.yam.util.AbilityScoreHelper;
 
 import net.minecraft.entity.EntityLivingBase;
@@ -26,7 +26,6 @@ public class Race implements IRace{
 			new Race("Elf","Sunelf",3,1,5),
 			new Race("Human","Bogling",4,3,2)
 			};
-
 	
 	public static final int RACE_COUNT = RACES.length;
 	
@@ -51,6 +50,7 @@ public class Race implements IRace{
 		subName = "";
 		setStats(0,0,0);
 	}
+	
 	private static int r(int i, int j) {
 		Random r = new Random();
 		return (int) (i + (j - i) * r.nextDouble());

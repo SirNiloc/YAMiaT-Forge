@@ -1,4 +1,4 @@
-package com.sirniloc.yam.systems.combat;
+package com.sirniloc.yam.systems;
 
 import com.sirniloc.yam.BaseYAM;
 import com.sirniloc.yam.character.capability.interfaces.IYam;
