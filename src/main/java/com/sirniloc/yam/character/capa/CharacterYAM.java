@@ -10,8 +10,11 @@ import com.sirniloc.yam.util.AbilityScoreHelper;
 
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.text.TextComponentString;
+import net.minecraft.util.text.TextFormatting;
 import net.minecraftforge.common.util.INBTSerializable;
 
 public class CharacterYAM implements IAbilityScores, INBTSerializable<NBTTagCompound> {
@@ -158,7 +161,21 @@ public class CharacterYAM implements IAbilityScores, INBTSerializable<NBTTagComp
 			
 			this.level++;			
 			this.addExp(leftOverExp);
-		}else this.exp = d;
+
+			if(this.theEntity instanceof EntityPlayerMP) {
+				TextComponentString message = new TextComponentString("Level Up!");
+				message.setStyle(message.getStyle().setColor(TextFormatting.GOLD));
+				this.theEntity.sendMessage(message);
+			}
+		}else {
+			this.exp = d;
+
+			if(this.theEntity instanceof EntityPlayerMP) {
+				TextComponentString message = new TextComponentString("Exp:"+this.getExp() +"/"+this.getNextLevelExpCost());
+				message.setStyle(message.getStyle().setColor(TextFormatting.GREEN));
+				this.theEntity.sendMessage(message);
+			}
+		}
 	}
 
 	@Override
@@ -260,14 +277,12 @@ public class CharacterYAM implements IAbilityScores, INBTSerializable<NBTTagComp
 
 	@Override
 	public void deathStuff() {
-		double d = (this.getLevel()*1)/recentAttackers.length;
+		double d = 100*(this.getLevel()*1)/recentAttackers.length;
 		
 		for(int i=0; i< recentAttackers.length;i++) {
 			IAbilityScores aCap = recentAttackers[i].getCapability(BaseYAM.ABS_CAP, null);
 				aCap.addExp(d);
-				
-				System.out.println(aCap.getABS().getNameYAM(recentAttackers[i])+" "+aCap.getExp() +"/"+aCap.getNextLevelExpCost());
-			}
+				}
 		}
 
 	@Override
