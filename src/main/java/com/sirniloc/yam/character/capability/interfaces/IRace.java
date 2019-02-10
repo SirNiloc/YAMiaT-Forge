@@ -1,4 +1,4 @@
-package com.sirniloc.yam.character.capa.interfaces;
+package com.sirniloc.yam.character.capability.interfaces;
 
 import net.minecraft.entity.EntityLivingBase;
 

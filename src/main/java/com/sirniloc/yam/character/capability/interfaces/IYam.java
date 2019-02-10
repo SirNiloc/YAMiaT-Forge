@@ -1,11 +1,11 @@
-package com.sirniloc.yam.character.capa.interfaces;
+package com.sirniloc.yam.character.capability.interfaces;
 
 import com.sirniloc.yam.character.Race;
-import com.sirniloc.yam.character.capa.CharacterYAM;
+import com.sirniloc.yam.character.capability.CharacterYAM;
 
 import net.minecraft.entity.EntityLivingBase;
 
-public interface IAbilityScores {
+public interface IYam {
 
 	int getTotalMind();
 	int getTotalBody();

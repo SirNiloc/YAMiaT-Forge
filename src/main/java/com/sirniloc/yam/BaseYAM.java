@@ -1,8 +1,9 @@
 package com.sirniloc.yam;
 
-import com.sirniloc.yam.character.capa.CapabilityYAM;
-import com.sirniloc.yam.character.capa.interfaces.IAbilityScores;
-import com.sirniloc.yam.handlers.EventHandlerYAM;
+import com.sirniloc.yam.character.capability.CapabilityYAM;
+import com.sirniloc.yam.character.capability.interfaces.IYam;
+import com.sirniloc.yam.handlers.YAMEvents;
+import com.sirniloc.yam.systems.leveling.LevelingSystemEvents;
 
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.MinecraftForge;
@@ -19,8 +20,8 @@ public class BaseYAM
     public static final String VERSION = "0.4";
     
     
-    @CapabilityInject(IAbilityScores.class)
-	public static Capability<IAbilityScores> ABS_CAP = null;	
+    @CapabilityInject(IYam.class)
+	public static Capability<IYam> ABS_CAP = null;	
 	
 	public static final ResourceLocation STAT_ID = new ResourceLocation(BaseYAM.MODID, "CAPABILITY_STATS");
     
@@ -32,7 +33,9 @@ public class BaseYAM
     @EventHandler
     public void init(FMLInitializationEvent event)
     {
-    	MinecraftForge.EVENT_BUS.register(new EventHandlerYAM());
+    	MinecraftForge.EVENT_BUS.register(new LevelingSystemEvents());
+
+    	MinecraftForge.EVENT_BUS.register(new YAMEvents());
     }
     @EventHandler
     public void postInit(FMLInitializationEvent event)    {

@@ -2,7 +2,7 @@ package com.sirniloc.yam.character;
 
 import java.util.Random;
 
-import com.sirniloc.yam.character.capa.interfaces.IRace;
+import com.sirniloc.yam.character.capability.interfaces.IRace;
 import com.sirniloc.yam.util.AbilityScoreHelper;
 
 import net.minecraft.entity.EntityLivingBase;

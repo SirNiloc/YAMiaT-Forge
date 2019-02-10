@@ -12,6 +12,7 @@ public class Creation {
 	String[] ourWorld = {"There was so much snow!(Snowy/Human[Nordling])","The trees were so tall!(Forest-Jungle/Elf[Woodelf])","Kinda trippy.(Mushroom/Halfelf)","It was so hot!(Desert-Savanna-Badlands/Elf[Sunelf])","I was in a swamp(Swamp/Human[Bogling])","It was peaceful.(Plains-Hills/Human)"};
 	
 	public static void onCharacterCreation() {
+		//TODO Character creation
 		
 	}
 }

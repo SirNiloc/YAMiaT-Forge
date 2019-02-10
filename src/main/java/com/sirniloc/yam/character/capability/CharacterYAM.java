@@ -1,11 +1,12 @@
-package com.sirniloc.yam.character.capa;
+package com.sirniloc.yam.character.capability;
 
 import java.util.Arrays;
 
 import com.sirniloc.yam.BaseYAM;
 import com.sirniloc.yam.character.NBTHelper;
 import com.sirniloc.yam.character.Race;
-import com.sirniloc.yam.character.capa.interfaces.IAbilityScores;
+import com.sirniloc.yam.character.capability.interfaces.IYam;
+import com.sirniloc.yam.systems.LevelingSystem;
 import com.sirniloc.yam.util.AbilityScoreHelper;
 
 import net.minecraft.entity.EntityLivingBase;
@@ -17,7 +18,7 @@ import net.minecraft.util.text.TextComponentString;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraftforge.common.util.INBTSerializable;
 
-public class CharacterYAM implements IAbilityScores, INBTSerializable<NBTTagCompound> {
+public class CharacterYAM implements IYam, INBTSerializable<NBTTagCompound> {
 
 	private int raceIndex=-1;
 	private int level;
@@ -82,22 +83,13 @@ public class CharacterYAM implements IAbilityScores, INBTSerializable<NBTTagComp
 		
 	}
 
-	
+	// TODO Multiplayer Sync
 	@Override
-	public void syncSpawn() {
-		// TODO Auto-generated method stub
-		
-	}
+	public void syncSpawn() {}
 	@Override
-	public void syncChange() {
-		// TODO Auto-generated method stub
-		
-	}
+	public void syncChange() {}
 	@Override
-	public void syncStatCheck() {
-		// TODO Auto-generated method stub
-		
-	}
+	public void syncStatCheck() {}
 
 
 	@Override
@@ -159,7 +151,7 @@ public class CharacterYAM implements IAbilityScores, INBTSerializable<NBTTagComp
 		if(this.getNextLevelExpCost()<=(d+curExp)) {
 			double leftOverExp = (d+curExp)-this.getNextLevelExpCost();
 			
-			this.levelUp();			
+			LevelingSystem.levelUp(this);			
 			this.addExp(leftOverExp);
 
 		}else {
@@ -167,44 +159,16 @@ public class CharacterYAM implements IAbilityScores, INBTSerializable<NBTTagComp
 
 			if(this.theEntity instanceof EntityPlayerMP) {
 				try {
-				TextComponentString message = new TextComponentString("Exp:"+this.getExp() +"/"+this.getNextLevelExpCost());
-				message.setStyle(message.getStyle().setColor(TextFormatting.GREEN));
-				this.theEntity.sendMessage(message);
-				}catch(NullPointerException e) {
-					//TODO Find Error
-				}
+					TextComponentString message = new TextComponentString("Exp:"+this.getExp() +"/"+this.getNextLevelExpCost());
+					message.setStyle(message.getStyle().setColor(TextFormatting.GREEN));
+					this.theEntity.sendMessage(message);
+				}catch(NullPointerException e) {}
 			}
 		}
 	}
 
-	private void levelUp() {
-		this.level++;		
-		try {
-		if(this.theEntity instanceof EntityPlayerMP) {
-			TextComponentString message = new TextComponentString("Level Up!");
-			message.setStyle(message.getStyle().setColor(TextFormatting.GOLD));
-			this.theEntity.sendMessage(message);
-		}
-		}catch(NullPointerException e) {
-			
-		}
-		this.checkStats();		
-	}
-	private void checkStats() {
-		this.setBody(this.level*(this.getRace().getBody()/3));
-		this.setMind(this.level*(this.getRace().getMind()/3));
-		this.setSpirit(this.level*(this.getRace().getSpirit()/3));
-		try {
-		if(this.theEntity instanceof EntityPlayerMP) {
-			TextComponentString message = new TextComponentString("Mind:"+this.getMind()+" Body:"+this.getBody()+" Spirit:"+this.getSpirit());
-			message.setStyle(message.getStyle().setColor(TextFormatting.GOLD));
-			this.theEntity.sendMessage(message);
-		}
-		}catch(java.lang.NullPointerException e) {
-			
-		}
-		
-	}
+	
+	
 
 	@Override
 	public void setLevelInt(int i) {
@@ -227,11 +191,7 @@ public class CharacterYAM implements IAbilityScores, INBTSerializable<NBTTagComp
 		return (this.getLevel() + ((1+this.getLevel())/2))*100;
 	}
 
-	public static String getNameYAM(EntityLivingBase e) {
-		IAbilityScores cap = e.getCapability(BaseYAM.ABS_CAP, null);
-		String r = "["+cap.getLevel()+"] "+e.getName()+" ("+cap.getRace().getName(e)+")";
-		return r;
-	}
+	
 	
 	@Override
 	public void addAttacker(EntityLivingBase n) {
@@ -308,7 +268,7 @@ public class CharacterYAM implements IAbilityScores, INBTSerializable<NBTTagComp
 		double d = this.theEntity.getMaxHealth()*(this.getLevel()*1)/recentAttackers.length;
 		
 		for(int i=0; i< recentAttackers.length;i++) {
-			IAbilityScores aCap = recentAttackers[i].getCapability(BaseYAM.ABS_CAP, null);
+			IYam aCap = recentAttackers[i].getCapability(BaseYAM.ABS_CAP, null);
 				aCap.addExp(d);
 				}
 		}
