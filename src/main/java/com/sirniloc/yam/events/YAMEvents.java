@@ -1,4 +1,4 @@
-package com.sirniloc.yam.handlers;
+package com.sirniloc.yam.events;
 
 import com.sirniloc.yam.BaseYAM;
 import com.sirniloc.yam.character.capability.CapabilityYAM;

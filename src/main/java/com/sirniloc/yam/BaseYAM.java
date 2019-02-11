@@ -2,7 +2,7 @@ package com.sirniloc.yam;
 
 import com.sirniloc.yam.character.capability.CapabilityYAM;
 import com.sirniloc.yam.character.capability.interfaces.IYam;
-import com.sirniloc.yam.handlers.YAMEvents;
+import com.sirniloc.yam.events.YAMEvents;
 import com.sirniloc.yam.systems.leveling.LevelingSystemEvents;
 
 import net.minecraft.util.ResourceLocation;
