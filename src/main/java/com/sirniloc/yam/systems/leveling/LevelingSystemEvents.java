@@ -14,7 +14,7 @@ public class LevelingSystemEvents {
 	public void deathEvent(LivingDeathEvent event) {
 		try {
 	    	if(event.getEntityLiving().hasCapability(BaseYAM.ABS_CAP, null)) {
-	        	ExpSystem.expFromKill(event.getEntityLiving().getCapability(BaseYAM.ABS_CAP, null).getCharacter());
+	        	ExpSystem.expFromKill(event.getEntityLiving().getCapability(BaseYAM.ABS_CAP, null).getYAM());
 	        }
 		}catch(NullPointerException e) {}        
 	}
@@ -23,7 +23,7 @@ public class LevelingSystemEvents {
 	public void blockBreak(HarvestDropsEvent event) {
 		try {
 	    	if(event.getHarvester().hasCapability(BaseYAM.ABS_CAP, null)) {
-	        	ExpSystem.expFromMine(event.getHarvester().getCapability(BaseYAM.ABS_CAP, null).getCharacter());
+	        	ExpSystem.expFromMine(event.getHarvester().getCapability(BaseYAM.ABS_CAP, null).getYAM());
 	        }
 		}catch(NullPointerException e) {}      
 	}
@@ -31,7 +31,7 @@ public class LevelingSystemEvents {
 	public void itemCraft(ItemCraftedEvent  event) {
 		try {
 	    	if(event.player.hasCapability(BaseYAM.ABS_CAP, null)) {
-	        	ExpSystem.expFromCrafting(event.player.getCapability(BaseYAM.ABS_CAP, null).getCharacter());
+	        	ExpSystem.expFromCrafting(event.player.getCapability(BaseYAM.ABS_CAP, null).getYAM());
 	        }
 		}catch(NullPointerException e) {}      
 	}

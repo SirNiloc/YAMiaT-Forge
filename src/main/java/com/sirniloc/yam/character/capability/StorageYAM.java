@@ -25,7 +25,7 @@ public class StorageYAM implements IStorage<IYam> {
 	public static class Factory implements Callable<IYam> {
 		@Override
 		public IYam call() throws Exception {
-			return new CharacterYAM(null);
+			return new YAM(null);
 		}
 	}
 

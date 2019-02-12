@@ -1,6 +1,6 @@
 package com.sirniloc.yam.character.capability.interfaces;
 
-import com.sirniloc.yam.character.capability.CharacterYAM;
+import com.sirniloc.yam.character.capability.YAM;
 import com.sirniloc.yam.character.race.Race;
 
 import net.minecraft.entity.EntityLivingBase;
@@ -15,8 +15,8 @@ public interface IYam {
 	int getBody();
 	int getSpirit();
 	
-	CharacterYAM getCharacter();
-	void cloneABS(CharacterYAM abs);
+	YAM getYAM();
+	void cloneABS(YAM abs);
 	
 	void setMind(double i);
 	void setBody(double i);

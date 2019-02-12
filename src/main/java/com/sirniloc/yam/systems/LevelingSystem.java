@@ -1,6 +1,6 @@
 package com.sirniloc.yam.systems;
 
-import com.sirniloc.yam.character.capability.CharacterYAM;
+import com.sirniloc.yam.character.capability.YAM;
 
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.util.text.TextComponentString;
@@ -8,7 +8,7 @@ import net.minecraft.util.text.TextFormatting;
 
 public class LevelingSystem {
 
-	public static void levelUp(CharacterYAM c) {
+	public static void levelUp(YAM c) {
 		c.setLevelInt(c.getLevel()+1);		
 		try {
 		if(c.theEntity instanceof EntityPlayerMP) {
@@ -22,7 +22,7 @@ public class LevelingSystem {
 		checkStats(c);		
 	}
 	
-	public static void checkStats(CharacterYAM c) {
+	public static void checkStats(YAM c) {
 		c.setBody(c.getLevel()*(c.getRace().getBody()/3));
 		c.setMind(c.getLevel()*(c.getRace().getMind()/3));
 		c.setSpirit(c.getLevel()*(c.getRace().getSpirit()/3));

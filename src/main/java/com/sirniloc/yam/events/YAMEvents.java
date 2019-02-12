@@ -2,7 +2,7 @@ package com.sirniloc.yam.events;
 
 import com.sirniloc.yam.BaseYAM;
 import com.sirniloc.yam.character.capability.CapabilityYAM;
-import com.sirniloc.yam.character.capability.CharacterYAM;
+import com.sirniloc.yam.character.capability.YAM;
 import com.sirniloc.yam.character.capability.interfaces.IYam;
 import com.sirniloc.yam.systems.CombatSystem;
 
@@ -31,7 +31,7 @@ public class YAMEvents {
 	public void onAttachCapabilityEntity(AttachCapabilitiesEvent<Entity> event) {
 		if(event.getObject() instanceof EntityLivingBase && !(event.getObject() instanceof EntityArmorStand)) {
 			
-			final IYam absCap = new CharacterYAM((EntityLivingBase) event.getObject());
+			final IYam absCap = new YAM((EntityLivingBase) event.getObject());
 			event.addCapability(BaseYAM.STAT_ID, CapabilityYAM.createProvider(absCap));
 		}
 			
@@ -39,7 +39,7 @@ public class YAMEvents {
 	
 	@SubscribeEvent
 	public void onPlayerRespawn(PlayerEvent.Clone event) {		
-		event.getEntityLiving().getCapability(BaseYAM.ABS_CAP, null).cloneABS(event.getOriginal().getCapability(BaseYAM.ABS_CAP, null).getCharacter());		
+		event.getEntityLiving().getCapability(BaseYAM.ABS_CAP, null).cloneABS(event.getOriginal().getCapability(BaseYAM.ABS_CAP, null).getYAM());		
 	}
 	
 	@SubscribeEvent

@@ -17,7 +17,7 @@ import net.minecraft.util.text.TextComponentString;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraftforge.common.util.INBTSerializable;
 
-public class CharacterYAM implements IYam, INBTSerializable<NBTTagCompound> {
+public class YAM implements IYam, INBTSerializable<NBTTagCompound> {
 
 	private int raceIndex=-1;
 	private int level;
@@ -37,7 +37,7 @@ public class CharacterYAM implements IYam, INBTSerializable<NBTTagCompound> {
 				" Spirit:"+this.getSpirit();
 	}
 
-	public CharacterYAM(EntityLivingBase e) {
+	public YAM(EntityLivingBase e) {
 		theEntity = e;
 		if(raceIndex<0 && !(e instanceof EntityPlayer))raceIndex=Race.getRandomIndex(Race.RACE_COUNT);
 	}
@@ -131,12 +131,12 @@ public class CharacterYAM implements IYam, INBTSerializable<NBTTagCompound> {
 	}
 
 	@Override
-	public CharacterYAM getCharacter() {
+	public YAM getYAM() {
 		return this;
 	}
 
 	@Override
-	public void cloneABS(CharacterYAM abs) {
+	public void cloneABS(YAM abs) {
 		spirit=abs.getTotalSpirit();
 		mind=abs.getTotalMind();
 		body=abs.getTotalBody();
