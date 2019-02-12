@@ -1,21 +1,23 @@
 package com.sirniloc.yam.classes;
 
-import com.sirniloc.yam.classes.skills.Skill;
+import com.sirniloc.yam.classes.skills.ISkill;
+import com.sirniloc.yam.classes.skills.active.*;
+import com.sirniloc.yam.classes.skills.passive.*;
 
 public class Class {
 	
 	String name;	
-	Skill[] skills;
+	ISkill[] skills;
 	
 	int level;
 	
 	public static Class[] classes = {
-			new Class("Warrior",new Skill[] {}),
-			new Class("Healer",new Skill[] {}),
-			new Class("Rogue",new Skill[] {})
+			new Class("Warrior",new ISkill[] {new Evasion(), new DamageRedirect()}),
+			new Class("Healer",new ISkill[] {new Heal(),new DefyDeath()}),
+			new Class("Rogue",new ISkill[] {new CritHit(),new DoubleStrike()})
 	};
 
-	public Class(String name, Skill[] skills) {
+	public Class(String name, ISkill[] skills) {
 		this.name=name;
 		this.skills=skills;
 	}

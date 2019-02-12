@@ -18,6 +18,8 @@ public class CharacterNBT {
 			instance.setRaceInt(tag.getInteger("race"));
 			instance.setExpDouble(tag.getDouble("exp"));
 			instance.setLevelInt(tag.getInteger("level"));
+			instance.setMana(tag.getDouble("mana"));
+			instance.setManaMax(tag.getInteger("maxmana"));
 		}
 	}
 	
@@ -29,6 +31,8 @@ public class CharacterNBT {
 		nbt.setInteger("race", instance.getRaceInt());
 		nbt.setDouble("exp", instance.getExp());
 		nbt.setInteger("level", instance.getLevel());
+		nbt.setDouble("mana", instance.getMana());
+		nbt.setInteger("maxmana", instance.getManaMax());
 		return nbt;
 		
 	}

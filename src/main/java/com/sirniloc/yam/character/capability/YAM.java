@@ -24,6 +24,9 @@ public class YAM implements IYam, INBTSerializable<NBTTagCompound> {
 	private double exp,mind,body,spirit;
 	public EntityLivingBase theEntity;
 	
+	private double mana;
+	private int maxMana;
+	
 	private static final float DECAY = 200;
 	
 	private EntityLivingBase[] recentAttackers;
@@ -266,6 +269,33 @@ public class YAM implements IYam, INBTSerializable<NBTTagCompound> {
 	@Override
 	public void addExp(double d) {
 		this.setExpDouble(this.getExp()+d);		
+	}
+
+	public void useMana(double cost) {
+		this.mana-=cost;
+		
+	}
+
+	@Override
+	public void setMana(double f) {
+		this.mana=f;
+		
+	}
+
+	@Override
+	public void setManaMax(int integer) {
+		this.maxMana=integer;
+		
+	}
+
+	@Override
+	public double getMana() {
+		return this.mana;
+	}
+
+	@Override
+	public int getManaMax() {
+		return this.maxMana;
 	}
 	
 

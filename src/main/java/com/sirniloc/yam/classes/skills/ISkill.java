@@ -1,9 +1,9 @@
 package com.sirniloc.yam.classes.skills;
 
-public interface ISkill {
+import com.sirniloc.yam.character.capability.YAM;
 
-	boolean useSkill(SkillUser caster);
+public interface ISkill {
 	
-	boolean isPassive();
+	void doSkillStuff(YAM caster);
 	
 }

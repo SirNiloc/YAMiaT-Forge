@@ -15,23 +15,5 @@ public class ExpSystem {
 		}
 	}
 	
-	public static void expFromCrafting(YAM characterYAM) {
-		//TODO Crafting EXP
-	}
 	
-	public static void expFromMine(YAM characterYAM) {
-		//TODO Mine EXP
-	}
-	
-	public static void expFromQuesting() {
-		//TODO Quest EXP
-	}
-	
-	public static void expFromSkill() {
-		//TODO Skill EXP
-	}
-	
-	public static void expFromAnvil() {
-		//TODO Anvil EXP
-	}	
 }

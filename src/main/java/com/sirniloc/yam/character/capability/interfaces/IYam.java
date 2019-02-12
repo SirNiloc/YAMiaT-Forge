@@ -45,6 +45,10 @@ public interface IYam {
 	void update();
 	void addExp(double d);
 	void removeAttacker(int j);
+	void setMana(double d);
+	void setManaMax(int integer);
+	double getMana();
+	int getManaMax();
 	
 	
 
