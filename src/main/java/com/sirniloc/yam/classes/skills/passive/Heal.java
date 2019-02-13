@@ -6,13 +6,12 @@ import com.sirniloc.yam.classes.skills.SkillPassive;
 public class Heal extends SkillPassive{
 
 	public Heal() {
-		super("Heal", 200, 1, 1);
+		super("Heal", 200, 1, 2);
 	}
 
 	@Override
 	public void doSkillStuff(YAM caster) {
-		// TODO Auto-generated method stub
-		
+		caster.theEntity.heal(getLevel());
 	}
 
 }

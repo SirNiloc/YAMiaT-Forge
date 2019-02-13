@@ -4,6 +4,7 @@ import com.sirniloc.yam.BaseYAM;
 import com.sirniloc.yam.character.capability.CapabilityYAM;
 import com.sirniloc.yam.character.capability.YAM;
 import com.sirniloc.yam.character.capability.interfaces.IYam;
+import com.sirniloc.yam.classes.ClassYAM;
 import com.sirniloc.yam.systems.CombatSystem;
 
 import net.minecraft.entity.Entity;
@@ -51,15 +52,15 @@ public class YAMEvents {
 	
 	@SubscribeEvent
 	public void onLivingUpdate(LivingEvent.LivingUpdateEvent event) {
-		float hpMax = event.getEntityLiving().getMaxHealth();
-		float hpCur = event.getEntityLiving().getHealth();
-		float hpBloodied = hpMax/4;
 		boolean isYAM = event.getEntityLiving().hasCapability(BaseYAM.ABS_CAP, null);
 		
-		if(isYAM) event.getEntityLiving().getCapability(BaseYAM.ABS_CAP, null).update();
-		
-		if(isYAM && hpCur<(hpMax-1) && hpCur>hpBloodied) 		
-			event.getEntityLiving().setHealth(CombatSystem.getHealFromYAM(event.getEntityLiving()));	
+		if(isYAM) {
+			IYam cap = event.getEntityLiving().getCapability(BaseYAM.ABS_CAP, null);
+			cap.update();
+			
+			YAM yam = cap.getYAM();
+			ClassYAM.doClassTicks(yam.getClassYAM(), yam);
+		}
 	}
 	
 	

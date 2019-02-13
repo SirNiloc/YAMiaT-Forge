@@ -49,6 +49,8 @@ public interface IYam {
 	void setManaMax(int integer);
 	double getMana();
 	int getManaMax();
+	void setClassInt(int integer);
+	int getClassIndex();
 	
 	
 

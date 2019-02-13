@@ -5,6 +5,7 @@ import java.util.Arrays;
 import com.sirniloc.yam.character.CharacterNBT;
 import com.sirniloc.yam.character.capability.interfaces.IYam;
 import com.sirniloc.yam.character.race.Race;
+import com.sirniloc.yam.classes.ClassYAM;
 import com.sirniloc.yam.systems.LevelingSystem;
 import com.sirniloc.yam.util.AbilityScoreHelper;
 
@@ -19,18 +20,18 @@ import net.minecraftforge.common.util.INBTSerializable;
 
 public class YAM implements IYam, INBTSerializable<NBTTagCompound> {
 
-	private int raceIndex=-1;
-	private int level;
-	private double exp,mind,body,spirit;
+	private int raceIndex=-1,classIndex=-1;
+	private int level,maxMana;
+	
+	private double exp,mind,body,spirit,mana;
+	
 	public EntityLivingBase theEntity;
-	
-	private double mana;
-	private int maxMana;
-	
-	private static final float DECAY = 200;
-	
 	private EntityLivingBase[] recentAttackers;
-	private float recentAttackersTime[];
+	
+	private float recentAttackersTime[];	
+	private static final float DECAY = 200;	
+	
+	
 	
 	@Override
 	public String toString() {		
@@ -297,6 +298,21 @@ public class YAM implements IYam, INBTSerializable<NBTTagCompound> {
 	public int getManaMax() {
 		return this.maxMana;
 	}
+
+	@Override
+	public void setClassInt(int integer) {
+		this.classIndex=integer;
+	}
+
+	@Override
+	public int getClassIndex() {
+		return this.classIndex;
+	}
+	
+	public ClassYAM getClassYAM() {
+		return ClassYAM.getClassFromIndex(this.getClassIndex());
+	}
+	
 	
 
 }
