@@ -17,25 +17,27 @@ public class CombatSystem {
 			IYam aCap = defender.getCapability(BaseYAM.ABS_CAP, null);
 			
 			dCap.addAttacker((EntityLivingBase)attacker);
-			
-			
-			float trueDamage = damage;
-			
-			int statDefense = AbilityScoreHelper.calcMod(dCap.getTotalBody());
-			int statAttack = AbilityScoreHelper.calcMod(aCap.getTotalMind());
-						
-			float defMod = statDefense+5.0F;
-			float attMod = statAttack+5.0F;
-			
-			float maxMod = AbilityScoreHelper.MAX_MOD+11.0F;
-			
-			float d = MathHelper.clamp(defMod, 0.0F, maxMod-6);
-			float a = MathHelper.clamp(attMod, 0.0F, maxMod-6);
-			
-			float dm = (1.0F - d / maxMod);
-			float am = (1.0F - a / maxMod);
-			
-			float outputDamage = trueDamage * (dm/am);			
+			float outputDamage = 0;
+			if() {
+			else
+				float trueDamage = damage;
+				
+				int statDefense = AbilityScoreHelper.calcMod(dCap.getTotalBody());
+				int statAttack = AbilityScoreHelper.calcMod(aCap.getTotalMind());
+							
+				float defMod = statDefense+5.0F;
+				float attMod = statAttack+5.0F;
+				
+				float maxMod = AbilityScoreHelper.MAX_MOD+11.0F;
+				
+				float d = MathHelper.clamp(defMod, 0.0F, maxMod-6);
+				float a = MathHelper.clamp(attMod, 0.0F, maxMod-6);
+				
+				float dm = (1.0F - d / maxMod);
+				float am = (1.0F - a / maxMod);
+				
+				outputDamage = trueDamage * (dm/am);	
+			}
 		    return outputDamage;	    
     }
 	
