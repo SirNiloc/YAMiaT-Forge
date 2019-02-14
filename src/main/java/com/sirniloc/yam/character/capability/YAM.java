@@ -309,6 +309,7 @@ public class YAM implements IYam, INBTSerializable<NBTTagCompound> {
 		return this.classIndex;
 	}
 	
+	@Override
 	public ClassYAM getClassYAM() {
 		return ClassYAM.getClassFromIndex(this.getClassIndex());
 	}

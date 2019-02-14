@@ -2,6 +2,7 @@ package com.sirniloc.yam.character.capability.interfaces;
 
 import com.sirniloc.yam.character.capability.YAM;
 import com.sirniloc.yam.character.race.Race;
+import com.sirniloc.yam.classes.ClassYAM;
 
 import net.minecraft.entity.EntityLivingBase;
 
@@ -51,6 +52,7 @@ public interface IYam {
 	int getManaMax();
 	void setClassInt(int integer);
 	int getClassIndex();
+	ClassYAM getClassYAM();
 	
 	
 

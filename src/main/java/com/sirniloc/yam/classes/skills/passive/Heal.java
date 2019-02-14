@@ -5,13 +5,21 @@ import com.sirniloc.yam.classes.skills.SkillPassive;
 
 public class Heal extends SkillPassive{
 
+	static final int ID = 2;
+	
 	public Heal() {
 		super("Heal", 200, 1, 2);
 	}
 
 	@Override
-	public void doSkillStuff(YAM caster) {
+	public boolean doSkillStuff(YAM caster) {
 		caster.theEntity.heal(getLevel());
+		return true;
+	}
+
+	@Override
+	public int getID() {
+		return ID;
 	}
 
 }

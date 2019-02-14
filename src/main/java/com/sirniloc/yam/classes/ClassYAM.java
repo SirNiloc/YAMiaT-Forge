@@ -51,7 +51,17 @@ public class ClassYAM {
 				}
 			}
 		}		
-		return r;
-		
+		return r;		
+	}
+	
+	public ISkill getSkill(ISkill s) {
+		for(ISkill ss : skills) {
+			if(ss.getID()==s.getID()) return ss;
+		}
+		return null;
+	}
+
+	public boolean hasSkill(ISkill s) {
+		return (this.getSkill(s)!=null);
 	}
 }

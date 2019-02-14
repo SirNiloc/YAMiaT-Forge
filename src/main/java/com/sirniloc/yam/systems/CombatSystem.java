@@ -2,6 +2,7 @@ package com.sirniloc.yam.systems;
 
 import com.sirniloc.yam.BaseYAM;
 import com.sirniloc.yam.character.capability.interfaces.IYam;
+import com.sirniloc.yam.classes.skills.passive.Evasion;
 import com.sirniloc.yam.util.AbilityScoreHelper;
 
 import net.minecraft.entity.Entity;
@@ -18,8 +19,11 @@ public class CombatSystem {
 			
 			dCap.addAttacker((EntityLivingBase)attacker);
 			float outputDamage = 0;
-			if() {
-			else
+			if((dCap.getClassYAM().hasSkill(new Evasion()))) {
+				if(dCap.getClassYAM().getSkill(new Evasion()).doSkillStuff(dCap.getYAM()))
+					return 0;
+			}
+			
 				float trueDamage = damage;
 				
 				int statDefense = AbilityScoreHelper.calcMod(dCap.getTotalBody());
@@ -37,7 +41,7 @@ public class CombatSystem {
 				float am = (1.0F - a / maxMod);
 				
 				outputDamage = trueDamage * (dm/am);	
-			}
+			
 		    return outputDamage;	    
     }
 	
