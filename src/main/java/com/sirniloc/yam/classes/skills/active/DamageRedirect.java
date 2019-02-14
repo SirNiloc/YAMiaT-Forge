@@ -24,4 +24,6 @@ public class DamageRedirect extends SkillActive{
 		return ID;
 	}
 
+	
+
 }

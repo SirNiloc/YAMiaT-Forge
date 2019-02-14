@@ -13,7 +13,7 @@ public class Heal extends SkillPassive{
 
 	@Override
 	public boolean doSkillStuff(YAM caster) {
-		caster.theEntity.heal(getLevel());
+		caster.theEntity.heal(getSkillLevel());
 		return true;
 	}
 
@@ -21,5 +21,7 @@ public class Heal extends SkillPassive{
 	public int getID() {
 		return ID;
 	}
+
+	
 
 }

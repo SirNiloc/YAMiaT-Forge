@@ -2,13 +2,15 @@ package com.sirniloc.yam.classes.skills;
 
 import com.sirniloc.yam.character.capability.YAM;
 
+import net.minecraft.util.math.MathHelper;
+
 public abstract class SkillPassive implements ISkill{
 
 	String name;	
 	
 	ISkill[] nextSkills;
 	
-	int skillLevelMax,levelReq;
+	int skillLevelMax,levelReq, skillLevel;
 
 	private int frequency;
 
@@ -16,7 +18,6 @@ public abstract class SkillPassive implements ISkill{
 	
 	private int ticks=0;
 	
-	private int level;
 	
 	public SkillPassive(String n, int ticks, int levelReq, int levelMax) {
 		this.name=n;
@@ -42,12 +43,21 @@ public abstract class SkillPassive implements ISkill{
 		return this.frequency;
 	}
 
-	public int getLevel() {
-		return level;
+	
+	@Override
+	public int getSkillLevel() {
+		return this.skillLevel;
 	}
 
-	public void setLevel(int level) {
-		this.level = level;
+	@Override
+	public void setSkillLevel(int skillLevel) {
+		this.skillLevel=MathHelper.clamp(this.skillLevel+skillLevel, 0, this.skillLevelMax);
+		
+	}
+	
+	@Override
+	public String getName() {
+		return this.name;
 	}
 
 }

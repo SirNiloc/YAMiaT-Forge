@@ -43,9 +43,15 @@ public class YAM implements IYam, INBTSerializable<NBTTagCompound> {
 
 	public YAM(EntityLivingBase e) {
 		theEntity = e;
-		if(raceIndex<0 && !(e instanceof EntityPlayer))raceIndex=Race.getRandomIndex(Race.RACE_COUNT);
+		if(e instanceof EntityPlayer)this.initYAM(e);
 	}
 	
+	private void initYAM(EntityLivingBase e) {
+		
+		if(raceIndex<0)raceIndex=Race.getRandomIndex(Race.RACE_COUNT);
+		if(this.classIndex<0)this.classIndex=ClassYAM.getRandomIndex(ClassYAM.CLASS_COUNT);
+		
+	}
 		@Override
 	public int getTotalMind() {
 		return this.getRace().getMind()+this.getMind();
@@ -156,6 +162,7 @@ public class YAM implements IYam, INBTSerializable<NBTTagCompound> {
 			
 			LevelingSystem.levelUp(this);			
 			this.addExp(leftOverExp);
+			
 
 		}else {
 			this.exp = d;
@@ -311,6 +318,8 @@ public class YAM implements IYam, INBTSerializable<NBTTagCompound> {
 	
 	@Override
 	public ClassYAM getClassYAM() {
+		if(this.classIndex<0 && (this.theEntity instanceof EntityPlayer))this.classIndex=ClassYAM.getRandomIndex(ClassYAM.CLASS_COUNT);
+		
 		return ClassYAM.getClassFromIndex(this.getClassIndex());
 	}
 	

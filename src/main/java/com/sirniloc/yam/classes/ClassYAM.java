@@ -1,5 +1,7 @@
 package com.sirniloc.yam.classes;
 
+import java.util.concurrent.ThreadLocalRandom;
+
 import com.sirniloc.yam.character.capability.YAM;
 import com.sirniloc.yam.classes.skills.ISkill;
 import com.sirniloc.yam.classes.skills.SkillPassive;
@@ -19,13 +21,16 @@ public class ClassYAM {
 	
 	int level;
 	
-	public static ClassYAM none = new ClassYAM("", null);
+	public static ClassYAM none = new ClassYAM("none", null);
 	
-	public static ClassYAM[] classes = {
+	public static final ClassYAM[] classes = {
 			new ClassYAM("Warrior",new ISkill[] {new Evasion(), new DamageRedirect()}),
 			new ClassYAM("Healer",new ISkill[] {new Heal(),new DefyDeath()}),
 			new ClassYAM("Rogue",new ISkill[] {new CritHit(),new DoubleStrike()})
 	};
+	
+
+	public static final int CLASS_COUNT = classes.length;
 
 	public ClassYAM(String name, ISkill[] skills) {
 		this.name=name;
@@ -34,7 +39,7 @@ public class ClassYAM {
 	
 	public static ClassYAM getClassFromIndex(int i) {
 		if(i<0) return none;
-		return classes[MathHelper.clamp(i, 0, classes.length-1)];
+		return classes[MathHelper.clamp(i, 0, CLASS_COUNT-1)];
 	}
 	
 	public ISkill[] getSkills() {
@@ -43,14 +48,16 @@ public class ClassYAM {
 	
 	public static boolean doClassTicks(ClassYAM c, YAM yam) {
 		boolean r = false;
-		for(ISkill s : c.getSkills()) {
-			if(s instanceof SkillPassive) {
-				if(((SkillPassive) s).isTickSkill()) {
-					r = true;
-					((SkillPassive) s).doTick(yam);
+		try {
+			for(ISkill s : c.getSkills()) {
+				if(s instanceof SkillPassive) {
+					if(((SkillPassive) s).isTickSkill()) {
+						r = true;
+						((SkillPassive) s).doTick(yam);
+					}
 				}
 			}
-		}		
+		}catch(NullPointerException e) {}
 		return r;		
 	}
 	
@@ -63,5 +70,13 @@ public class ClassYAM {
 
 	public boolean hasSkill(ISkill s) {
 		return (this.getSkill(s)!=null);
+	}
+
+	public static int getRandomIndex(int count) {
+		return ThreadLocalRandom.current().nextInt(0, CLASS_COUNT-1);
+	}
+
+	public String getName() {
+		return this.name;
 	}
 }

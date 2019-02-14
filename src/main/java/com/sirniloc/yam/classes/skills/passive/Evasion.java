@@ -22,7 +22,7 @@ public class Evasion extends SkillPassive{
 
 	private boolean evade() {
 		int randomNum = ThreadLocalRandom.current().nextInt(0, 101);
-		return randomNum>this.getLevel();
+		return randomNum>this.getSkillLevel();
 	}
 
 	@Override

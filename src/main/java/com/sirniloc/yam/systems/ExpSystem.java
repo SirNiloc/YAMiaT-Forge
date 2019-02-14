@@ -11,7 +11,7 @@ public class ExpSystem {
 		
 		for(int i=0; i< characterYAM.getRecentAttackers().length;i++) {
 			IYam aCap = characterYAM.getRecentAttackers()[i].getCapability(BaseYAM.ABS_CAP, null);
-				aCap.addExp(d);
+			aCap.addExp(d);
 		}
 	}
 	

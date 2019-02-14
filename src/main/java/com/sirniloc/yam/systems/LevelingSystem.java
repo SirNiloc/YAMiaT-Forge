@@ -9,13 +9,14 @@ import net.minecraft.util.text.TextFormatting;
 public class LevelingSystem {
 
 	public static void levelUp(YAM c) {
-		c.setLevelInt(c.getLevel()+1);		
+		c.setLevelInt(c.getLevel()+1);	
+		c.setExpDouble(0);
 		try {
-		if(c.theEntity instanceof EntityPlayerMP) {
-			TextComponentString message = new TextComponentString("Level Up!");
-			message.setStyle(message.getStyle().setColor(TextFormatting.GOLD));
-			c.theEntity.sendMessage(message);
-		}
+			if(c.theEntity instanceof EntityPlayerMP) {
+				TextComponentString message = new TextComponentString("Level Up!");
+				message.setStyle(message.getStyle().setColor(TextFormatting.GOLD));
+				c.theEntity.sendMessage(message);
+			}
 		}catch(NullPointerException e) {
 			
 		}

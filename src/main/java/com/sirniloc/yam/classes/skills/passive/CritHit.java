@@ -21,7 +21,7 @@ public class CritHit extends SkillPassive{
 
 	private boolean crit() {
 		int randomNum = ThreadLocalRandom.current().nextInt(0, 101);
-		return randomNum>this.getLevel();
+		return randomNum>this.getSkillLevel();
 	}
 
 	@Override
