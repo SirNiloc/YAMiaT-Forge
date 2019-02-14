@@ -31,7 +31,6 @@ public class YAMEvents {
 	
 	@SubscribeEvent	
     public void onLivingDamage(LivingDamageEvent event) {
-       //TODO        passive
 	}
 		
 	@SubscribeEvent
