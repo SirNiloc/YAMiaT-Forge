@@ -41,7 +41,7 @@ public class YAMEvents {
 		if(event.getObject() instanceof EntityLivingBase && !(event.getObject() instanceof EntityArmorStand)) {
 			
 			final IYam absCap = new YAM((EntityLivingBase) event.getObject());
-			event.addCapability(BaseYAM.STAT_ID, CapabilityYAM.createProvider(absCap));
+			event.addCapability(BaseYAM.STAT_ID, CapabilityYAM.createProvider(absCap, event.getObject()));
 		}
 			
 	}
