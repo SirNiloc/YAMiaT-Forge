@@ -15,8 +15,8 @@ public class CombatSystem {
 	public static float getDamageAfterYAM(float damage, EntityLivingBase defender, Entity attacker)
 	{
 			
-			IYam dCap = defender.getCapability(BaseYAM.ABS_CAP, null);
-			IYam aCap = defender.getCapability(BaseYAM.ABS_CAP, null);
+			IYam dCap = (IYam) defender.getCapability(BaseYAM.ABS_CAP, null);
+			IYam aCap = (IYam) defender.getCapability(BaseYAM.ABS_CAP, null);
 			
 			dCap.addAttacker((EntityLivingBase)attacker);
 			float outputDamage = 0;
@@ -57,7 +57,7 @@ public class CombatSystem {
 
 	
 	public static float getHealFromYAM(EntityLivingBase e) {		
-		float mod = AbilityScoreHelper.calcMod(e.getCapability(BaseYAM.ABS_CAP, null).getTotalSpirit())+5;
+		float mod = AbilityScoreHelper.calcMod(((IYam) e.getCapability(BaseYAM.ABS_CAP, null)).getTotalSpirit())+5;
 		int seconds = 20;
 				
 		return e.getHealth()+(mod/15)/(20*seconds);

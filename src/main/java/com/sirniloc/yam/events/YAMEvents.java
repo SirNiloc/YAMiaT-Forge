@@ -26,9 +26,9 @@ public class YAMEvents {
 	@SubscribeEvent
     public void onLivingHurt(LivingHurtEvent event) {
         try {
-        	if(event.getEntityLiving().hasCapability(BaseYAM.ABS_CAP, null) && event.getSource().getTrueSource().hasCapability(BaseYAM.ABS_CAP, null)) {
+        	//if(event.getEntityLiving().hasCapability(BaseYAM.ABS_CAP, null) && event.getSource().getTrueSource().hasCapability(BaseYAM.ABS_CAP, null)) {
 	        	event.setAmount(CombatSystem.getDamageAfterYAM(event.getAmount(),event.getEntityLiving(), event.getSource().getTrueSource()));
-	        	}
+	        	//}
         }catch(java.lang.NullPointerException e) {}        
 	}
 	
@@ -48,27 +48,27 @@ public class YAMEvents {
 	
 	@SubscribeEvent
 	public void onPlayerRespawn(PlayerEvent.Clone event) {		
-		event.getEntityLiving().getCapability(BaseYAM.ABS_CAP, null).cloneABS(event.getOriginal().getCapability(BaseYAM.ABS_CAP, null).getYAM());		
+		((IYam) event.getEntityLiving().getCapability(BaseYAM.ABS_CAP, null)).cloneABS(((IYam) event.getOriginal().getCapability(BaseYAM.ABS_CAP, null)).getYAM());		
 	}
 	
 	@SubscribeEvent
 	public void playerName(PlayerEvent.NameFormat event) {
-		if(event.getEntityLiving().hasCapability(BaseYAM.ABS_CAP, null)){
+		//if(event.getEntityLiving().hasCapability(BaseYAM.ABS_CAP, null)){
 			event.setDisplayname(CapabilityYAM.getNameYAM(event.getEntityLiving()));
-		}
+		//}
 	}	
 	
 	@SubscribeEvent
 	public void onLivingUpdate(LivingEvent.LivingUpdateEvent event) {
-		boolean isYAM = event.getEntityLiving().hasCapability(BaseYAM.ABS_CAP, null);
+		//boolean isYAM = event.getEntityLiving().hasCapability(BaseYAM.ABS_CAP, null);
 		
-		if(isYAM) {
-			IYam cap = event.getEntityLiving().getCapability(BaseYAM.ABS_CAP, null);
+		//if(isYAM) {
+			IYam cap = (IYam) event.getEntityLiving().getCapability(BaseYAM.ABS_CAP, null);
 			cap.update();
 			
 			YAM yam = cap.getYAM();
 			ClassYAM.doClassTicks(yam.getClassYAM(), yam);
-		}
+		//}
 	}
 	
 	

@@ -19,7 +19,7 @@ public class CapabilityYAM {
 	}
 	
 	public static String getNameYAM(EntityLivingBase e) {
-		IYam cap = e.getCapability(BaseYAM.ABS_CAP, null);
+		IYam cap = (IYam) e.getCapability(BaseYAM.ABS_CAP, null);
 		String r = "["+cap.getLevel()+"] "+e.getName()+" ("+cap.getRace().getName(e)+")";
 		return r;
 	}

@@ -87,16 +87,16 @@ public class Race implements IRace{
 	@Override
 	public String getName(EntityLivingBase e) {
 		if(e instanceof EntityPlayer)	return this.name;
-		return e.getName();
+		return e.getName().toString();
 	}
 	
 	public String getSubRaceName(EntityLivingBase e) {
 		if(e instanceof EntityPlayer)	return this.subName;
-		return e.getName();
+		return e.getName().toString();
 	}
 	@Override
 	public String getFullName(EntityLivingBase e) {
 		if(e instanceof EntityPlayer)	return this.getName(e) +" ("+this.getSubRaceName(e)+")";
-		return e.getName();
+		return e.getName().toString();
 	}
 }

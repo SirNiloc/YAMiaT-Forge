@@ -10,7 +10,7 @@ public class ExpSystem {
 		double d = characterYAM.theEntity.getMaxHealth()*(characterYAM.getLevel()*1)/characterYAM.getRecentAttackers().length;
 		
 		for(int i=0; i< characterYAM.getRecentAttackers().length;i++) {
-			IYam aCap = characterYAM.getRecentAttackers()[i].getCapability(BaseYAM.ABS_CAP, null);
+			IYam aCap = (IYam) characterYAM.getRecentAttackers()[i].getCapability(BaseYAM.ABS_CAP, null);
 			aCap.addExp(d);
 		}
 	}

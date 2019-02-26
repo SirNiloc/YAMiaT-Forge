@@ -2,9 +2,11 @@ package com.sirniloc.yam.util;
 
 import javax.annotation.Nullable;
 
+import net.minecraft.nbt.INBTBase;
 import net.minecraft.util.EnumFacing;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.ICapabilitySerializable;
+import net.minecraftforge.common.util.LazyOptional;
 
 /**
  * 
@@ -13,7 +15,7 @@ import net.minecraftforge.common.capabilities.ICapabilitySerializable;
  * @param <HANDLER>
  */
 
-public class SimpleCapabilityProvider <HANDLER> implements ICapabilitySerializable<NBTBase> {
+public class SimpleCapabilityProvider <HANDLER> implements ICapabilitySerializable<INBTBase> {
 
 
 	private final Capability<HANDLER> capability;
@@ -30,15 +32,9 @@ public class SimpleCapabilityProvider <HANDLER> implements ICapabilitySerializab
 		this.instance = instance;
 		this.facing = facing;
 	}
-
+		
 	@Override
-	public boolean hasCapability(Capability<?> capability, @Nullable EnumFacing facing) {
-		return capability == getCapability();
-
-	}
-	@Override
-	@Nullable
-	public <T> T getCapability(Capability<T> capability, @Nullable EnumFacing facing) {
+	public <T> LazyOptional<T> getCapability(Capability<T> cap, EnumFacing side) {
 		if (capability == getCapability()) {
 			return getCapability().cast(getInstance());
 		}
@@ -46,12 +42,12 @@ public class SimpleCapabilityProvider <HANDLER> implements ICapabilitySerializab
 	}
 
 	@Override
-	public NBTBase serializeNBT() {
+	public INBTBase serializeNBT() {
 		return getCapability().writeNBT(getInstance(), getFacing());
 	}
 
 	@Override
-	public void deserializeNBT(NBTBase nbt) {
+	public void deserializeNBT(INBTBase nbt) {
 		getCapability().readNBT(getInstance(), getFacing(), nbt);
 	}
 
