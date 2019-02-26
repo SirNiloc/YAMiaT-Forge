@@ -1,23 +1,26 @@
 package com.sirniloc.yam;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import com.sirniloc.yam.character.capability.CapabilityYAM;
 import com.sirniloc.yam.character.capability.interfaces.IYam;
-import com.sirniloc.yam.events.YAMEvents;
-import com.sirniloc.yam.systems.leveling.LevelingSystemEvents;
 
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.CapabilityInject;
+import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.common.Mod.EventHandler;
-import net.minecraftforge.fml.common.event.FMLInitializationEvent;
+import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
+import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
+import net.minecraftforge.fml.event.server.FMLServerStartingEvent;
+import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 
-@Mod(modid = BaseYAM.MODID, version = BaseYAM.VERSION)
+@Mod(BaseYAM.MODID)
 public class BaseYAM
 {
     public static final String MODID = "yam";
-    public static final String VERSION = "0.5";
     
     
     @CapabilityInject(IYam.class)
@@ -25,22 +28,39 @@ public class BaseYAM
 	
 	public static final ResourceLocation STAT_ID = new ResourceLocation(BaseYAM.MODID, "CAPABILITY_STATS");
     
-    @EventHandler
-    public void preInit(FMLInitializationEvent event)    {
-    	
-    }
+    //TODO Update
     
-    @EventHandler
-    public void init(FMLInitializationEvent event)
-    {
-    	MinecraftForge.EVENT_BUS.register(new LevelingSystemEvents());
-
-    	MinecraftForge.EVENT_BUS.register(new YAMEvents());
+    private static final Logger LOGGER = LogManager.getLogger();
+    
+    public BaseYAM() {
+        // Register the setup method for modloading
+        FMLJavaModLoadingContext.get().getModEventBus().addListener(this::setup);
+        // Register the doClientStuff method for modloading
+        FMLJavaModLoadingContext.get().getModEventBus().addListener(this::doClientStuff);
+        // Register ourselves for server and other game events we are interested in
+        MinecraftForge.EVENT_BUS.register(this);
     }
-    @EventHandler
-    public void postInit(FMLInitializationEvent event)    {
+
+    private void setup(final FMLCommonSetupEvent event)
+    {
+        // some preinit code
     	CapabilityYAM.postInit();
     }
+
+    private void doClientStuff(final FMLClientSetupEvent event) {
+        // do something that can only be done on the client
+    }
+
+    
+    // You can use SubscribeEvent and let the Event Bus discover methods to call
+    @SubscribeEvent
+    public void onServerStarting(FMLServerStartingEvent event) {
+        // do something when the server starts
+    }
+
+    
+    
+    ///////
     
     public static int calcMod(int aScore) {
     	if(aScore == 1)		return -5;

@@ -15,12 +15,15 @@ import net.minecraftforge.event.entity.living.LivingDamageEvent;
 import net.minecraftforge.event.entity.living.LivingEvent;
 import net.minecraftforge.event.entity.living.LivingHurtEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
-import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraftforge.fml.common.Mod;
 
+
+@Mod.EventBusSubscriber(bus=Mod.EventBusSubscriber.Bus.MOD)
 public class YAMEvents {
 	
 	
-	@SubscribeEvent	
+	@SubscribeEvent
     public void onLivingHurt(LivingHurtEvent event) {
         try {
         	if(event.getEntityLiving().hasCapability(BaseYAM.ABS_CAP, null) && event.getSource().getTrueSource().hasCapability(BaseYAM.ABS_CAP, null)) {
